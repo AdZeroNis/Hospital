@@ -43,6 +43,14 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="required" class="form-label">اجباری بودن نقش</label>
+                            <select class="form-control" id="required" name="required">
+                                <option value="1">بله</option>
+                                <option value="0">خیر</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="status" class="form-label">وضعیت</label>
                             <select class="form-control" id="status" name="status">
                                 <option value="1">فعال</option>

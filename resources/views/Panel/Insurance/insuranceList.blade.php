@@ -1,0 +1,85 @@
+@extends('Panel.layout.master')
+
+@section('content')
+
+<div class="d-flex justify-content-center mt-5"> <!-- تنظیم تراز وسط و فاصله -->
+    <div class="col-md-10"> <!-- تنظیم عرض جدول -->
+        <!-- فرم فیلتر -->
+        <div class="card mb-4">
+            <div class="card-body">
+
+                <!-- فرم جستجو برای بیمه -->
+                <form method="GET" action="{{ route('Panel.Searchinsurances') }}" class="mb-4">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="text" name="search" class="form-control" placeholder="جستجو بر اساس نام بیمه" value="{{ old('search', request('search')) }}">
+                        </div>
+                        {{-- <div class="col-md-3">
+                            <select name="type" class="form-control">
+                                <option value="">تمام انواع بیمه</option>
+                                <option value="basic" {{ request('type') == 'basic' ? 'selected' : '' }}>پایه</option>
+                                <option value="supplementary" {{ request('type') == 'supplementary' ? 'selected' : '' }}>تکمیلی</option>
+                            </select>
+                        </div> --}}
+                        <div class="col-md-3">
+                            <select name="status" class="form-control">
+                                <option value="">تمام وضعیت‌ها</option>
+                                <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>فعال</option>
+                                <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>غیرفعال</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-secondary">جستجو</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- لیست بیمه‌ها -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="card-title">لیست بیمه‌ها</h3>
+                <a href="{{ route('Panel.CreateInsurance') }}" class="btn btn-primary ms-auto">اضافه کردن بیمه جدید</a>
+            </div>
+
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ردیف</th>
+                            <th>نام بیمه</th>
+                            <th>نوع بیمه</th>
+                            <th>درصد تخفیف</th>
+                            <th>وضعیت</th>
+                            <th style="width: 150px;">عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($insurances as $index => $insurance)
+                        <tr class="align-middle">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $insurance->name }}</td>
+                            <td>{{ $insurance->type == 'basic' ? 'پایه' : 'تکمیلی' }}</td>
+                            <td>{{ $insurance->discount }}%</td>
+                            <td>{{ $insurance->status ? 'فعال' : 'غیرفعال' }}</td>
+                            <td>
+                                <a href="{{ route('Panel.EditInsurance', $insurance->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
+                                <form action="{{ route('Panel.DeleteInsurance', $insurance->id) }}" method="POST" class="d-inline">
+                                    @csrf
+
+                                    <button type="submit" class="btn btn-danger btn-sm">حذف</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+</div>
+
+@endsection

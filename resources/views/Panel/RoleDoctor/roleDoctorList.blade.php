@@ -39,31 +39,31 @@
             <!-- /.card-header -->
             <div class="card-body p-0">
                 <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>ردیف</th>
-                            <th>عنوان نقش</th>
-                            <th>درصد سهم</th>
-                            <th>وضعیت</th>
-                            <th style="width: 150px;">عملیات</th> <!-- تنظیم عرض ستون عملیات -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($roles as $index => $roleDoctor)
-                        <tr class="align-middle">
-                            <td>{{ $index + 1 }}</td> <!-- ردیف -->
-                            <td>{{ $roleDoctor->title }}</td> <!-- نمایش عنوان نقش -->
-                            <td>{{ $roleDoctor->quota }}%</td> <!-- نمایش درصد سهم -->
-                            <td>{{ $roleDoctor->status ? 'فعال' : 'غیرفعال' }}</td> <!-- وضعیت نقش -->
-                            <td>
-                                <!-- لینک حذف -->
-                                <a href="{{ route('Panel.DeleteRolesDoctor', $roleDoctor->id) }}" class="btn btn-danger btn-sm">حذف</a>
-                                <!-- لینک ویرایش -->
-                                <a href="{{ route('Panel.EditRolesDoctor', $roleDoctor->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+            
+    <tr>
+        <th>ردیف</th>
+        <th>عنوان نقش</th>
+        <th>درصد سهم</th>
+        <th>اجباری</th> <!-- ستون جدید -->
+        <th>وضعیت</th>
+        <th style="width: 150px;">عملیات</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach ($roles as $index => $roleDoctor)
+    <tr class="align-middle">
+        <td>{{ $index + 1 }}</td>
+        <td>{{ $roleDoctor->title }}</td>
+        <td>{{ $roleDoctor->quota }}%</td>
+        <td>{{ $roleDoctor->required ? 'بله' : 'خیر' }}</td> <!-- نمایش وضعیت اجباری -->
+        <td>{{ $roleDoctor->status ? 'فعال' : 'غیرفعال' }}</td>
+        <td>
+            <a href="{{ route('Panel.DeleteRolesDoctor', $roleDoctor->id) }}" class="btn btn-danger btn-sm">حذف</a>
+            <a href="{{ route('Panel.EditRolesDoctor', $roleDoctor->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
+        </td>
+    </tr>
+    @endforeach
+</tbody>
                 </table>
             </div>
             <!-- /.card-body -->

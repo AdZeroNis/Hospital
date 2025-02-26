@@ -53,7 +53,29 @@
                   <i class="nav-icon bi bi-circle"></i>
                   <p> نقش پزشکان</p>
                 </a>
+                <li class="nav-item">
+                    <a href="{{route('Panel.DoctorList')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>پزشکان</p>
+                 </a>
+                    <li class="nav-item">
+                        <a href="{{route('Panel.InsuranceList')}}" class="nav-link">
+                          <i class="nav-icon bi bi-circle"></i>
+                          <p>بیمه</p>
+                  </a>
+                  <li class="nav-item">
+                    <a href="{{route('Panel.OperationList')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>عمل ها</p>
+              </a>
+              <li class="nav-item">
+                <a href="{{route('Panel.SurgeryList')}}" class="nav-link">
+                  <i class="nav-icon bi bi-circle"></i>
+                  <p>عمل های جراحی</p>
+          </a>
               </li>
+
+
             </ul>
           </li>
 

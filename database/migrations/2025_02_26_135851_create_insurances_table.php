@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles_doctor', function (Blueprint $table) {
+        Schema::create('insurances', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 191)->unique();
-            $table->tinyInteger('quota')->default(0)->unsigned()->comment('Percentage share in surgery (0 to 100)');
-            $table->boolean('status')->default(1);
+            $table->string('name', 100)->unique();
+            $table->enum('type', ['basic', 'supplementary']);
+            $table->tinyInteger('discount')->default(0)->unsigned()->comment('Percentage share in surgery (0 to 100)');;
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles_doctor');
+        Schema::dropIfExists('insurances');
     }
 };

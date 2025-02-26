@@ -63,6 +63,7 @@ class SpecialityController extends Controller
         Alert::success('موفقیت', 'تخصص با موفقیت حذف شد');
         return redirect()->route('Panel.SpecialitiesList');
     }
+
     public function filters(Request $request)
     {
         $user = Auth::user();
@@ -83,11 +84,10 @@ class SpecialityController extends Controller
         $specialities = $query->get();
 
         return view('Panel.Speciality.SpecialitiesList', [
-            'specialities' => $specialities, // تغییر نام متغیر
+            'specialities' => $specialities,
             'search' => $request->search,
             'status' => $request->status,
-            'user' => $user, // تغییر نام متغیر
+            'user' => $user,
         ]);
     }
-
 }

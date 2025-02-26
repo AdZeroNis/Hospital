@@ -20,21 +20,22 @@ class DoctorRoleController extends Controller
     public function create()
     {
         $user = Auth::user();
-        return view('Panel.RoleDoctor.createRoleDoctor',compact('user'));
+        return view('Panel.RoleDoctor.createRoleDoctor', compact('user'));
     }
 
     public function store(Request $request)
     {
         $user = Auth::user();
         $request->validate([
-            'title' => 'required|unique:roles_doctor,title|max:191',
+            'title' => 'required|unique:doctor_roles,title|max:191',
             'quota' => 'required|integer|between:0,100',
+            'required' => 'required|boolean',
             'status' => 'required|boolean',
         ]);
 
         DoctorRole::create($request->all());
-        Alert::success('Success', 'Doctor role created successfully');
-        return redirect()->route('Panel.RolesDoctorList',compact('user'));
+        Alert::success('موفقیت', 'نقش پزشک با موفقیت ایجاد شد');
+        return redirect()->route('Panel.RolesDoctorList', compact('user'));
     }
 
     public function edit($id)
@@ -50,7 +51,7 @@ class DoctorRoleController extends Controller
         $data = $request->all();
 
         $doctorRole->update($data);
-        Alert::success('Success', 'Doctor role updated successfully');
+        Alert::success('موفقیت', 'نقش پزشک با موفقیت به‌روزرسانی شد');
         return redirect()->route('Panel.RolesDoctorList');
     }
 
@@ -58,13 +59,14 @@ class DoctorRoleController extends Controller
     {
         $role = DoctorRole::find($id);
         $role->delete();
-        Alert::success('Success', 'Doctor role deleted successfully');
+        Alert::success('موفقیت', 'نقش پزشک با موفقیت حذف شد');
         return redirect()->route('Panel.RolesDoctorList');
     }
+
     public function filters(Request $request)
     {
         $user = Auth::user();
-        $query =  DoctorRole::query();
+        $query = DoctorRole::query();
 
         if ($request->has('search') && $request->search != '') {
             $query->where('title', 'like', '%' . $request->search . '%');
@@ -81,9 +83,10 @@ class DoctorRoleController extends Controller
         $roles = $query->get();
 
         return view('Panel.RoleDoctor.roleDoctorList', [
-           'roles' => $roles,
+            'roles' => $roles,
             'search' => $request->search,
             'status' => $request->status,
+            'required' => $request->required,
             'user' => $user,
         ]);
     }

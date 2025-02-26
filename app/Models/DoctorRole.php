@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class DoctorRole extends Model
 {
-    protected $table = 'roles_doctor';
+    protected $fillable = ['title', 'required', 'quota', 'status'];
 
-    protected $fillable = [
-        'title', 'quota', 'status'
-    ];
+    public function doctors()
+    {
+        return $this->belongsToMany(Doctor::class, 'role_doctor_doctor', 'doctor_role_id', 'doctor_id');
+    }
 }
