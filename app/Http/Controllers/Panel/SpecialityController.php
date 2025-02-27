@@ -59,6 +59,12 @@ class SpecialityController extends Controller
     public function destroy($id)
     {
         $speciality = Speciality::find($id);
+
+        // if ($speciality->doctors()->exists()) {
+        //     Alert::error('نا موفق', 'تخصص قابل  حذف نیست');
+        // return redirect()->route('Panel.SpecialitiesList');
+        // }
+
         $speciality->delete();
         Alert::success('موفقیت', 'تخصص با موفقیت حذف شد');
         return redirect()->route('Panel.SpecialitiesList');

@@ -56,7 +56,7 @@
                             <td>{{ $operation->price }} تومان</td>
                             <td>{{ $operation->status ? 'فعال' : 'غیرفعال' }}</td>
                             <td>
-                                <form id="delete-form-{{ $surgery->id }}" method="POST" action="{{ route('Panel.DeleteOperation', $operation->id) }}" style="display: inline;">
+                                <form id="delete-form-{{ $operation->id }}" method="POST" action="{{ route('Panel.DeleteOperation', $operation->id) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" onclick="confirmDelete('{{ $operation->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">حذف</button>
