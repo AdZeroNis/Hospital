@@ -56,6 +56,8 @@ class SurgeryController extends Controller
     public function update(Request $request, $id)
     {
         $surgery = Surgery::find($id);
+
+       
         $request->validate([
             'patient_name' => 'required|max:100',
             'patient_national_code' => 'required|max:20',
@@ -67,11 +69,17 @@ class SurgeryController extends Controller
         ]);
 
         $data = $request->all();
+
+        if ($request->has('supp_insurance_id') && $request->supp_insurance_id != null) {
+            $data['basic_insurance_id'] = null;
+        }
+
         $surgery->update($data);
 
         Alert::success('موفقیت', 'عمل جراحی با موفقیت ویرایش شد');
         return redirect()->route('Panel.SurgeryList');
     }
+
 
     public function destroy($id)
     {

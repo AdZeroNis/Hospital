@@ -66,10 +66,11 @@
                             <td>{{ $insurance->status ? 'فعال' : 'غیرفعال' }}</td>
                             <td>
                                 <a href="{{ route('Panel.EditInsurance', $insurance->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
-                                <form action="{{ route('Panel.DeleteInsurance', $insurance->id) }}" method="POST" class="d-inline">
-                                    @csrf
 
-                                    <button type="submit" class="btn btn-danger btn-sm">حذف</button>
+                                <form id="delete-form-{{ $insurance->id }}" method="POST" action="{{ route('Panel.DeleteInsurance', $insurance->id) }}" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" onclick="confirmDelete('{{ $insurance->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">حذف</button>
                                 </form>
                             </td>
                         </tr>

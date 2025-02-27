@@ -21,27 +21,26 @@
                             <input type="text" class="form-control" id="patient_national_code" name="patient_national_code" required>
                         </div>
 
-                        <!-- Basic Insurance Checkbox -->
-                        <div class="mb-3">
-                            <label class="form-label">بیمه پایه</label><br>
-                            @foreach ($insurances as $insurance)
-                                @if ($insurance->type == 'basic')
-                                    <input type="checkbox" id="basic_insurance_id" name="basic_insurance_id" value="{{ $insurance->id }}">
-                                    <label for="basic_insurance_id">{{ $insurance->name }}</label><br>
-                                @endif
-                            @endforeach
-                        </div>
+<div class="mb-3">
+    <label class="form-label">بیمه پایه</label><br>
+    @foreach ($insurances as $insurance)
+        @if ($insurance->type == 'basic')
+            <input type="radio" id="basic_insurance_id_{{ $insurance->id }}" name="basic_insurance_id" value="{{ $insurance->id }}">
+            <label for="basic_insurance_id_{{ $insurance->id }}">{{ $insurance->name }}</label><br>
+        @endif
+    @endforeach
+</div>
 
-                        <!-- Supplementary Insurance Checkbox -->
-                        <div class="mb-3">
 
-                            @foreach ($insurances as $insurance)
-                                @if ($insurance->type == 'supplementary')
-                                    <input type="checkbox" id="supp_insurance_id" name="supp_insurance_id" value="{{ $insurance->id }}">
-                                    <label for="supp_insurance_id">{{ $insurance->name }}</label><br>
-                                @endif
-                            @endforeach
-                        </div>
+<div class="mb-3">
+    <label class="form-label">بیمه تکمیلی</label><br>
+    @foreach ($insurances as $insurance)
+        @if ($insurance->type == 'supplementary')
+            <input type="radio" id="supp_insurance_id_{{ $insurance->id }}" name="supp_insurance_id" value="{{ $insurance->id }}">
+            <label for="supp_insurance_id_{{ $insurance->id }}">{{ $insurance->name }}</label><br>
+        @endif
+    @endforeach
+</div>
 
                         <div class="mb-3">
                             <label for="document_number" class="form-label">شماره مدارک</label>

@@ -14,7 +14,7 @@
                         <div class="col-md-3">
                             <input type="text" name="search" class="form-control" placeholder="جستجو بر اساس نام بیمار" value="{{ old('search', request('search')) }}">
                         </div>
-                   
+
                         <div class="col-md-3">
                             <button type="submit" class="btn btn-secondary">جستجو</button>
                         </div>
@@ -39,7 +39,7 @@
                             <th>نام بیمار</th>
                             <th>کد ملی بیمار</th>
                             <th>بیمه پایه</th>
-
+                            <th>بیمه تکمیلی</th>
                             <th style="width: 150px;">عملیات</th>
                         </tr>
                     </thead>
@@ -50,9 +50,15 @@
                             <td>{{ $surgery->patient_name }}</td>
                             <td>{{ $surgery->patient_national_code }}</td>
                             <td>{{ $surgery->basicInsurance ? $surgery->basicInsurance->name : 'ندارد' }}</td>
-
+                            <td>{{ $surgery->suppInsurance ? $surgery->suppInsurance->name : 'ندارد' }}</td>
                             <td>
-                                <a href="{{ route('Panel.DeleteSurgery', $surgery->id) }}" class="btn btn-danger btn-sm">حذف</a>
+                                <form id="delete-form-{{ $surgery->id }}" method="POST" action="{{ route('Panel.DeleteSurgery', $surgery->id) }}" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" onclick="confirmDelete('{{ $surgery->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">حذف</button>
+                                </form>
+
+
                                 <a href="{{ route('Panel.EditSurgery', $surgery->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
                             </td>
                         </tr>

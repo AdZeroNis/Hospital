@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('doctor_id')->constrained('doctors');
             $table->foreignId('surgery_id')->constrained('surgeries');
-           // $table->foreignId('doctor_role_id')->constrained('doctor_roles');
+            $table->foreignId('doctor_role_id')->constrained('doctor_roles');
             $table->foreignId('invoice_id')->constrained('invoices');
             $table->bigInteger('amount')->unsigned();
             $table->timestamps();
         });
-     
+
     }
 
     /**

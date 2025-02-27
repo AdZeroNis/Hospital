@@ -24,7 +24,7 @@ Route::prefix('panel')->middleware('auth')->group(function () {
         Route::get('/Panel/UserList', [UserController::class, 'UserList'])->name('Panel.UserList');
         Route::get('/Panel/edit/{id}', [UserController::class, 'Edit'])->name('Panel.Edit');
         Route::post('/Panel/UpdateUser/{id}', [UserController::class, 'Update'])->name('Panel.UpdateUser');
-        Route::get('/Panel/Delete/{id}', [UserController::class, 'Delete'])->name('Panel.DeleteUser');
+        Route::delete('/Panel/Delete/{id}', [UserController::class, 'Delete'])->name('Panel.DeleteUser');
         });
     Route::prefix('specialities')->group(function () {
             Route::get('/index', [SpecialityController::class, 'index'])->name('Panel.SpecialitiesList');
@@ -32,7 +32,7 @@ Route::prefix('panel')->middleware('auth')->group(function () {
             Route::post('/store', [SpecialityController::class, 'store'])->name('Panel.StoreSpeciality');
             Route::get('/edit/{id}', [SpecialityController::class, 'edit'])->name('Panel.EditSpeciality');
             Route::post('/update/{id}', [SpecialityController::class, 'update'])->name('Panel.UpdateSpeciality');
-            Route::get('/delete/{id}', [SpecialityController::class, 'destroy'])->name('Panel.DeleteSpeciality');
+            Route::delete('/delete/{id}', [SpecialityController::class, 'destroy'])->name('Panel.DeleteSpeciality');
             Route::get('/search', [SpecialityController::class, 'filters'])->name('Panel.SearchSpeciality');
         });
 
@@ -42,7 +42,7 @@ Route::prefix('panel')->middleware('auth')->group(function () {
         Route::post('/roles-doctor', [DoctorRoleController::class, 'store'])->name('Panel.StoreRolesDoctor');
         Route::get('/roles-doctor/edit/{id}', [DoctorRoleController::class, 'edit'])->name('Panel.EditRolesDoctor');
         Route::post('/roles-doctor/update/{id}', [DoctorRoleController::class, 'update'])->name('Panel.UpdateRolesDoctor');
-        Route::get('/roles-doctor/delete/{id}', [DoctorRoleController::class, 'destroy'])->name('Panel.DeleteRolesDoctor');
+        Route::delete('/roles-doctor/delete/{id}', [DoctorRoleController::class, 'destroy'])->name('Panel.DeleteRolesDoctor');
         Route::get('/roles-doctor/search', [DoctorRoleController::class, 'filters'])->name('Panel.SearchDoctorRole');
     });
     Route::prefix('Doctor')->group(function () {
@@ -51,7 +51,7 @@ Route::prefix('panel')->middleware('auth')->group(function () {
         Route::post('/doctor', [DoctorController::class, 'store'])->name('Panel.StoreDoctor');
         Route::get('/doctor/edit/{id}', [DoctorController::class, 'edit'])->name('Panel.EditDoctor');
         Route::post('/doctor/update/{id}', [DoctorController::class, 'update'])->name('Panel.UpdateDoctor');
-        Route::get('/doctor/delete/{id}', [DoctorController::class, 'destroy'])->name('Panel.DeleteDoctor');
+        Route::delete('/doctor/delete/{id}', [DoctorController::class, 'destroy'])->name('Panel.DeleteDoctor');
         Route::get('/doctor/search', [DoctorController::class, 'filters'])->name('Panel.SearchDoctor');
     });
     Route::prefix('insurances')->group(function () {
@@ -60,7 +60,7 @@ Route::prefix('panel')->middleware('auth')->group(function () {
         Route::post('/insurances/store', [InsurancesController::class, 'store'])->name('Panel.StoreInsurance');
         Route::get('/insurances/edit/{id}', [InsurancesController::class, 'edit'])->name('Panel.EditInsurance');
          Route::post('/insurances/update/{id}', [InsurancesController::class, 'update'])->name('Panel.UpdateInsurance');
-        Route::get('/insurances/delete/{id}', [InsurancesController::class, 'destroy'])->name('Panel.DeleteInsurance');
+        Route::delete('/insurances/delete/{id}', [InsurancesController::class, 'destroy'])->name('Panel.DeleteInsurance');
         Route::get('/insurances/filters', [InsurancesController::class, 'filters'])->name('Panel.Searchinsurances');
 });
 Route::prefix('Operation')->group(function () {
@@ -69,7 +69,7 @@ Route::prefix('Operation')->group(function () {
     Route::post('/Operation/store', [OperationController::class, 'store'])->name('Panel.StoreOperation');
     Route::get('/Operation/edit/{id}', [OperationController::class, 'edit'])->name('Panel.EditOperation');
      Route::post('/Operation/update/{id}', [OperationController::class, 'update'])->name('Panel.UpdateOperation');
-    Route::get('/Operation/delete/{id}', [OperationController::class, 'destroy'])->name('Panel.DeleteOperation');
+    Route::delete('/Operation/delete/{id}', [OperationController::class, 'destroy'])->name('Panel.DeleteOperation');
     Route::get('/Operation/filters', [OperationController::class, 'filters'])->name('Panel.SearchOperation');
 });
 Route::prefix('Surgery')->group(function () {
@@ -78,7 +78,7 @@ Route::prefix('Surgery')->group(function () {
     Route::post('/Surgery/store', [SurgeryController::class, 'store'])->name('Panel.StoreSurgery');
     Route::get('/Surgery/edit/{id}', [SurgeryController::class, 'edit'])->name('Panel.EditSurgery');
      Route::post('/Surgery/update/{id}', [SurgeryController::class, 'update'])->name('Panel.UpdateSurgery');
-    Route::get('/Surgery/delete/{id}', [SurgeryController::class, 'destroy'])->name('Panel.DeleteSurgery');
+    Route::delete('/Surgery/delete/{id}', [SurgeryController::class, 'destroy'])->name('Panel.DeleteSurgery');
     Route::get('/Surgery/filters', [SurgeryController::class, 'filters'])->name('Panel.SearchSurgery');
 });
 });

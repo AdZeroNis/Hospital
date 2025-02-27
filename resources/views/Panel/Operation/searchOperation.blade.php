@@ -53,7 +53,12 @@
                             <td>{{ $operation->price }} تومان</td>
                             <td>{{ $operation->status ? 'فعال' : 'غیرفعال' }}</td>
                             <td>
-                                <a href="{{ route('Panel.DeleteOperation', $operation->id) }}" class="btn btn-danger btn-sm">حذف</a>
+                                {{-- <a href="{{ route('Panel.DeleteOperation', $operation->id) }}" class="btn btn-danger btn-sm">حذف</a> --}}
+                                <form id="delete-form-{{ $surgery->id }}" method="POST" action="{{ route('Panel.DeleteOperation', $operation->id) }}" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" onclick="confirmDelete('{{ $operation->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">حذف</button>
+                                </form>
                                 <a href="{{ route('Panel.EditOperation', $operation->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
                             </td>
                         </tr>

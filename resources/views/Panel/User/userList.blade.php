@@ -35,7 +35,12 @@
                             <td>{{ $user->email }}</td> <!-- نمایش ایمیل کاربر -->
                             <td>
                                 <!-- لینک حذف -->
-                                <a href="{{route('Panel.DeleteUser',$user->id)}}" class="btn btn-danger btn-sm">حذف</a>
+                                {{-- <a href="{{route('Panel.DeleteUser',$user->id)}}" class="btn btn-danger btn-sm">حذف</a> --}}
+                                <form id="delete-form-{{ $user->id }}" method="POST" action="{{ route('Panel.DeleteUser', $user->id) }}" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" onclick="confirmDelete('{{ $user->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">حذف</button>
+                                </form>
                                 <!-- لینک ویرایش -->
                                 <a href="{{ route('Panel.Edit', $user->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
 

@@ -58,7 +58,12 @@
                             <td>{{ $doctor->speciality->name }}</td> <!-- نمایش تخصص پزشک -->
                             <td>{{ $doctor->status ? 'فعال' : 'غیرفعال' }}</td>
                             <td>
-                                <a href="{{ route('Panel.DeleteDoctor', $doctor->id) }}" class="btn btn-danger btn-sm">حذف</a>
+                                {{-- <a href="{{ route('Panel.DeleteDoctor', $doctor->id) }}" class="btn btn-danger btn-sm">حذف</a> --}}
+                                <form id="delete-form-{{ $doctor->id }}" method="POST" action="{{ route('Panel.DeleteDoctor', $doctor->id) }}" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" onclick="confirmDelete('{{ $doctor->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">حذف</button>
+                                </form>
                                 <a href="{{ route('Panel.EditDoctor', $doctor->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
                             </td>
                         </tr>

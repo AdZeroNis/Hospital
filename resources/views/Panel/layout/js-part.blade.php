@@ -39,4 +39,23 @@
       });
     </script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmDelete(surgeryId) {
+        Swal.fire({
+            title: "آیا مطمئن هستید؟",
+            text: "این عملیات قابل بازگشت نیست!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "بله، انجام شود!",
+            cancelButtonText: "لغو"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + surgeryId).submit();
+            }
+        });
+    }
+</script>
 

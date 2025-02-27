@@ -63,7 +63,12 @@
                                 <td>{{ $roleDoctor->required ? 'بله' : 'خیر' }}</td> <!-- نمایش وضعیت اجباری -->
                                 <td>{{ $roleDoctor->status ? 'فعال' : 'غیرفعال' }}</td>
                                 <td>
-                                    <a href="{{ route('Panel.DeleteRolesDoctor', $roleDoctor->id) }}" class="btn btn-danger btn-sm">حذف</a>
+                                    {{-- <a href="{{ route('Panel.DeleteRolesDoctor', $roleDoctor->id) }}" class="btn btn-danger btn-sm">حذف</a> --}}
+                                    <form id="delete-form-{{ $roleDoctor->id }}" method="POST" action="{{ route('Panel.DeleteRolesDoctor', $roleDoctor->id) }}" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" onclick="confirmDelete('{{ $roleDoctor->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">حذف</button>
+                                    </form>
                                     <a href="{{ route('Panel.EditRolesDoctor', $roleDoctor->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
                                 </td>
                             </tr>
