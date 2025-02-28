@@ -6,7 +6,7 @@
 
       <ul class="navbar-nav ms-auto">
         <!--begin::Navbar Search-->
-     
+
         <!--end::Navbar Search-->
         <!--begin::Messages Dropdown Menu-->
         <li class="nav-item dropdown">
@@ -37,7 +37,7 @@
               class="user-image rounded-circle shadow"
               alt="User Image"
             />
-            <span class="d-none d-md-inline">{{Auth::user()->name}}</span>
+            <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
             <!--begin::User Image-->
@@ -48,9 +48,9 @@
                 alt="User Image"
               />
               <p>
-                {{Auth::user()->name}}
+                {{ auth()->user()->name }}
 
-                <small>{{Auth::user()->mobile}}</small>
+                <small>{{ auth()->user()->mobile }}</small>
               </p>
             </li>
             <!--end::User Image-->
@@ -63,7 +63,7 @@
             <!--end::Menu Body-->
             <!--begin::Menu Footer-->
             <li class="user-footer">
-              <a href="#" class="btn btn-default btn-flat">Profile</a>
+              <a href="{{ route('Profile', ['id' => auth()->user()->id]) }}" class="btn btn-default btn-flat">Profile</a>
               <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
             </li>
             <!--end::Menu Footer-->

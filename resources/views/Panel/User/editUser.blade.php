@@ -2,54 +2,62 @@
 
 @section('content')
 
+<div class="d-flex justify-content-center mt-5"> <!-- تنظیم تراز وسط و فاصله -->
+    <div class="col-md-8"> <!-- تنظیم عرض جدول -->
 
-<div class="container-fluid mt-5">
-    <div class="row justify-content-center">
-        <div class="col-10"> <!-- استفاده از col-12 برای عرض کامل -->
-            <!--begin::Quick Example-->
-            <div class="card card-primary card-outline mb-4">
-                <!--begin::Header-->
-                <div class="card-header">
-                    <div class="card-title">   ویرایش کاربر</div>
-                </div>
-                <!--end::Header-->
-                <!--begin::Form-->
-                <form method="POST" action="{{route('Panel.UpdateUser',$user->id)}}">
-                    @csrf
-                    <!--begin::Body-->
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label"> نام</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
-                                name="name"
-                                value="{{$user->name}}"
-                            />
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">تلفن</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" name="phone"  value="{{$user->mobile}}"/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">ایمیل</label>
-                            <input type="email" class="form-control" id="exampleInputPassword1" name="email" value="{{$user->email}}" />
-                        </div>
-
-                    </div>
-                    <!--end::Body-->
-                    <!--begin::Footer-->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">ویرایش</button>
-                    </div>
-                    <!--end::Footer-->
-                </form>
-                <!--end::Form-->
+        <!-- ویرایش پروفایل کاربر -->
+        <div class="card mb-4 shadow-lg rounded-3"> <!-- اضافه کردن سایه و گوشه‌های گرد -->
+            <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white p-3 rounded-top"> <!-- پس‌زمینه و متن سفارشی -->
+                <h3 class="card-title mb-0">ویرایش پروفایل ادمین</h3>
             </div>
-            <!--end::Quick Example-->
+
+            <!-- /.card-header -->
+            <div class="card-body p-4"> <!-- اضافه کردن padding برای زیبایی بیشتر -->
+                <div class="row align-items-center">
+                    <div class="col-md-3 text-center"> <!-- تنظیم موقعیت تصویر -->
+                        <img src="{{ asset('Adminasset/assets/img/user2-160x160.jpg') }}" alt="Admin Profile" class="img-fluid rounded-circle shadow-sm" style="width: 150px; height: 150px;"> <!-- تصویر گرد با سایه -->
+                    </div>
+                    <div class="col-md-9">
+                        <!-- فرم ویرایش پروفایل -->
+                        <form method="POST" action="{{ route('updateProfile', $user->id) }}">
+                            @csrf
+
+
+                            <div class="mb-3">
+                                <label for="name" class="form-label">نام</label>
+                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">ایمیل</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">رمز عبور جدید (در صورت تمایل)</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="در صورت نیاز رمز عبور جدید وارد کنید">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password_confirmation" class="form-label">تایید رمز عبور جدید</label>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="تایید رمز عبور جدید">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+
+
+                            <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
         </div>
     </div>
 </div>
+
 @endsection

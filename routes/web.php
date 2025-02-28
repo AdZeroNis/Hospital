@@ -17,14 +17,11 @@ Route::post('/login', [AuthController::class, 'Login'])->name('Login');
 Route::prefix('panel')->middleware('auth')->group(function () {
     Route::get('/Panel', [PanelController::class, 'Panel'])->name('Panel');
 
-     Route::prefix("users")->group(function () {
+     Route::prefix("user")->group(function () {
+        Route::get('/user/profile', [UserController::class, 'Profile'])->name('Profile');
+        Route::get('/Edit/{id}', [UserController::class, "Edit"])->name('editProfile');
+    Route::post('/Update/{id}', [UserController::class, "Update"])->name('updateProfile');
 
-        Route::get('/Panel/StoreUser', [UserController::class, 'Store'])->name('Panel.CreateUser');
-        Route::post('/Panel/StoreUser', [UserController::class, 'Save'])->name('Panel.SaveUser');
-        Route::get('/Panel/UserList', [UserController::class, 'UserList'])->name('Panel.UserList');
-        Route::get('/Panel/edit/{id}', [UserController::class, 'Edit'])->name('Panel.Edit');
-        Route::post('/Panel/UpdateUser/{id}', [UserController::class, 'Update'])->name('Panel.UpdateUser');
-        Route::delete('/Panel/Delete/{id}', [UserController::class, 'Delete'])->name('Panel.DeleteUser');
         });
     Route::prefix('specialities')->group(function () {
             Route::get('/index', [SpecialityController::class, 'index'])->name('Panel.SpecialitiesList');
