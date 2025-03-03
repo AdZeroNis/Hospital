@@ -65,12 +65,12 @@
                             <td>{{ $insurance->discount }}%</td>
                             <td>{{ $insurance->status ? 'فعال' : 'غیرفعال' }}</td>
                             <td>
-                                <a href="{{ route('Panel.EditInsurance', $insurance->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
+                                <a href="{{ route('Panel.EditInsurance', $insurance->id) }}" class="btn btn-warning btn-sm" style="color: white !important;"><i class="fa fa-pencil text-light"></i></a>
 
                                 <form id="delete-form-{{ $insurance->id }}" method="POST" action="{{ route('Panel.DeleteInsurance', $insurance->id) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="confirmDelete('{{ $insurance->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">حذف</button>
+                                    <button type="button" onclick="confirmDelete('{{ $insurance->id }}')" class="btn btn-danger btn-sm px-2" title="حذف"> <i class="fa fa-trash text-light"></i></button>
                                 </form>
                             </td>
                         </tr>

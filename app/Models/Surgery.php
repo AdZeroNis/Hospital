@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Hekmatinasser\Verta\Verta;
 class Surgery extends Model
 {
     protected $fillable = [
@@ -31,5 +31,14 @@ class Surgery extends Model
     {
         return $this->belongsToMany(Doctor::class, 'surgery_doctor', 'surgery_id', 'doctor_id')
                     ->withPivot('doctor_role_id', 'invoice_id', 'amount');
+    } 
+    
+    public function getSurgeriedAtShamsi()
+    {
+        return (new Verta($this->surgeried_at))->format('Y.m.d');
+    }
+    public function getReleasedAtShamsi()
+    {
+        return (new Verta($this->released_at))->format('Y.m.d');
     }
 }

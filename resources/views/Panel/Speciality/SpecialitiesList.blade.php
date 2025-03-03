@@ -41,6 +41,7 @@
                         <tr>
                             <th>ردیف</th>
                             <th>عنوان تخصص</th>
+                            <th>تاریخ ایجاد</th>
                             <th>وضعیت</th>
                             <th style="width: 150px;">عملیات</th> <!-- تنظیم عرض ستون عملیات -->
                         </tr>
@@ -50,6 +51,7 @@
                         <tr class="align-middle">
                             <td>{{ $index + 1 }}</td> <!-- ردیف -->
                             <td>{{ $speciality->title }}</td> <!-- نمایش عنوان تخصص -->
+                            <td>{{ $speciality->getCreateAtShamsi() }}</td> <!-- تاریخ ایجاد -->
                             <td>{{ $speciality->status ? 'فعال' : 'غیرفعال' }}</td> <!-- وضعیت تخصص -->
                             <td>
                                 <!-- لینک حذف -->

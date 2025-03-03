@@ -11,7 +11,7 @@
                 </div>
                 <form method="POST" action="{{ route('Panel.UpdateInsurance', $insurance->id) }}">
                     @csrf
-                    @method('PUT')
+                  
                     <div class="card-body">
                         <div class="mb-3">
                             <label for="name" class="form-label">نام بیمه</label>

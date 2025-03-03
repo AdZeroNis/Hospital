@@ -44,6 +44,7 @@
                             <th>ردیف</th>
                             <th>نام پزشک</th>
                             <th>کد ملی</th>
+                            <th>تاریخ ایجاد</th>
                             <th>شماره نظام پزشکی</th>
                             <th>تخصص</th>
                             <th>موبایل</th>
@@ -57,6 +58,7 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $doctor->name }}</td>
                             <td>{{ $doctor->national_code }}</td>
+                            <td>{{ $doctor->getCreateAtShamsi() }}</td>
                             <td>{{ $doctor->medical_number }}</td>
                             <td>{{ $doctor->speciality->title ?? 'ندارد' }}</td>
                             <td>{{ $doctor->mobile }}</td>
@@ -66,9 +68,9 @@
                                 <form id="delete-form-{{ $doctor->id }}" method="POST" action="{{ route('Panel.DeleteDoctor', $doctor->id) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="confirmDelete('{{ $doctor->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">حذف</button>
+                                    <button type="button" onclick="confirmDelete('{{ $doctor->id }}')" class="btn btn-danger btn-sm px-2" title="حذف"> <i class="fa fa-trash text-light"></i></button>
                                 </form>
-                                <a href="{{ route('Panel.EditDoctor', $doctor->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
+                                <a href="{{ route('Panel.EditDoctor', $doctor->id) }}" class="btn btn-warning btn-sm" style="color: white !important;"><i class="fa fa-pencil text-light"></i></a>
                             </td>
                         </tr>
                         @endforeach

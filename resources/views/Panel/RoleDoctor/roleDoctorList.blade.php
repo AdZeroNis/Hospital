@@ -33,7 +33,7 @@
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title">لیست نقش‌های پزشکان</h3>
-                <a href="{{ route('Panel.CreateRolesDoctor') }}" class="btn btn-primary ms-auto">اضافه کردن نقش جدید</a>
+                <!-- <a href="{{ route('Panel.CreateRolesDoctor') }}" class="btn btn-primary ms-auto">اضافه کردن نقش جدید</a> -->
             </div>
 
             <!-- /.card-header -->
@@ -59,12 +59,12 @@
         <td>{{ $roleDoctor->status ? 'فعال' : 'غیرفعال' }}</td>
         <td>
             {{-- <a href="{{ route('Panel.DeleteRolesDoctor', $roleDoctor->id) }}" class="btn btn-danger btn-sm">حذف</a> --}}
-            <form id="delete-form-{{ $roleDoctor->id }}" method="POST" action="{{ route('Panel.DeleteRolesDoctor', $roleDoctor->id) }}" style="display: inline;">
+            <!-- <form id="delete-form-{{ $roleDoctor->id }}" method="POST" action="{{ route('Panel.DeleteRolesDoctor', $roleDoctor->id) }}" style="display: inline;">
                 @csrf
                 @method('DELETE')
-                <button type="button" onclick="confirmDelete('{{ $roleDoctor->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">حذف</button>
-            </form>
-            <a href="{{ route('Panel.EditRolesDoctor', $roleDoctor->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
+                <button type="button" onclick="confirmDelete('{{ $roleDoctor->id }}')" class="btn btn-danger btn-sm px-2" title="حذف"> <i class="fa fa-trash text-light"></i></button>
+            </form> -->
+            <a href="{{ route('Panel.EditRolesDoctor', $roleDoctor->id) }}" class="btn btn-warning btn-sm" style="color: white !important;"><i class="fa fa-pencil text-light"></i></a>
         </td>
     </tr>
     @endforeach

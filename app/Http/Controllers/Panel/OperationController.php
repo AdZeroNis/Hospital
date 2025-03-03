@@ -25,6 +25,7 @@ class OperationController extends Controller
 
     public function store(Request $request)
     {
+      
         $user = Auth::user();
         $request->validate([
             'name' => 'required|max:100|unique:operations,name',

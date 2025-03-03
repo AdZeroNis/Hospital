@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Hekmatinasser\Verta\Verta;
 class Speciality extends Model
 {
     use HasFactory;
@@ -31,5 +31,9 @@ class Speciality extends Model
     public function doctors()
     {
         return $this->hasMany(Doctor::class);
+    }
+    public function getCreateAtShamsi()
+    {
+        return new Verta($this->created_at);
     }
 }

@@ -17,26 +17,26 @@ class DoctorRoleController extends Controller
         return view('Panel.RoleDoctor.roleDoctorList', compact('roles', 'user'));
     }
 
-    public function create()
-    {
-        $user = Auth::user();
-        return view('Panel.RoleDoctor.createRoleDoctor', compact('user'));
-    }
+    // public function create()
+    // {
+    //     $user = Auth::user();
+    //     return view('Panel.RoleDoctor.createRoleDoctor', compact('user'));
+    // }
 
-    public function store(Request $request)
-    {
-        $user = Auth::user();
-        $request->validate([
-            'title' => 'required|unique:doctor_roles,title|max:191',
-            'quota' => 'required|integer|between:0,100',
-            'required' => 'required|boolean',
-            'status' => 'required|boolean',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $user = Auth::user();
+    //     $request->validate([
+    //         'title' => 'required|unique:doctor_roles,title|max:191',
+    //         'quota' => 'required|integer|between:0,100',
+    //         'required' => 'required|boolean',
+    //         'status' => 'required|boolean',
+    //     ]);
 
-        DoctorRole::create($request->all());
-        Alert::success('موفقیت', 'نقش پزشک با موفقیت ایجاد شد');
-        return redirect()->route('Panel.RolesDoctorList', compact('user'));
-    }
+    //     DoctorRole::create($request->all());
+    //     Alert::success('موفقیت', 'نقش پزشک با موفقیت ایجاد شد');
+    //     return redirect()->route('Panel.RolesDoctorList', compact('user'));
+    // }
 
     public function edit($id)
     {
@@ -48,20 +48,59 @@ class DoctorRoleController extends Controller
     public function update(Request $request, $id)
     {
         $doctorRole = DoctorRole::find($id);
-        $data = $request->all();
+        
+     
+        if ($doctorRole->title !== 'جراح') {
+    
+            $totalOtherQuota = DoctorRole::whereIn('title', ['مشاور', 'بیهوشی'])
+                ->where('id', '!=', $id)
+                ->sum('quota');
+            
+           
+            $newTotalQuota = $totalOtherQuota + $request->quota;
+            
+            if ($newTotalQuota > 100) {
+                Alert::error('خطا', 'مجموع سهم‌های مشاور و بیهوشی نمی‌تواند بیشتر از 100 درصد باشد');
+                return redirect()->back()->withInput();
+            }
 
-        $doctorRole->update($data);
+      
+            $oldQuota = $doctorRole->quota;
+            
+      
+            $doctorRole->update($request->all());
+
+        
+            $surgeonRole = DoctorRole::where('title', 'جراح')->first();
+            if ($surgeonRole) {
+           
+                if ($request->quota < $oldQuota) {
+                    $difference = $oldQuota - $request->quota;
+                    $surgeonRole->quota += $difference;
+                } 
+              
+                else {
+                    $difference = $request->quota - $oldQuota;
+                    $surgeonRole->quota -= $difference;
+                }
+                $surgeonRole->save();
+            }
+        } else {
+            Alert::error('خطا', 'سهم جراح به صورت خودکار محاسبه می‌شود و قابل تغییر نیست');
+            return redirect()->back();
+        }
+
         Alert::success('موفقیت', 'نقش پزشک با موفقیت به‌روزرسانی شد');
         return redirect()->route('Panel.RolesDoctorList');
     }
 
-    public function destroy($id)
-    {
-        $role = DoctorRole::find($id);
-        $role->delete();
-        Alert::success('موفقیت', 'نقش پزشک با موفقیت حذف شد');
-        return redirect()->route('Panel.RolesDoctorList');
-    }
+    // public function destroy($id)
+    // {
+    //     $role = DoctorRole::find($id);
+    //     $role->delete();
+    //     Alert::success('موفقیت', 'نقش پزشک با موفقیت حذف شد');
+    //     return redirect()->route('Panel.RolesDoctorList');
+    // }
 
     public function filters(Request $request)
     {

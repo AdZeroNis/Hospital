@@ -40,6 +40,8 @@
                             <th>کد ملی بیمار</th>
                             <th>بیمه پایه</th>
                             <th>بیمه تکمیلی</th>
+                            <th>تاریخ جراحی</th>
+                            <th>تاریخ رهگیری</th>
                             <th style="width: 150px;">عملیات</th>
                         </tr>
                     </thead>
@@ -51,15 +53,17 @@
                             <td>{{ $surgery->patient_national_code }}</td>
                             <td>{{ $surgery->basicInsurance ? $surgery->basicInsurance->name : 'ندارد' }}</td>
                             <td>{{ $surgery->suppInsurance ? $surgery->suppInsurance->name : 'ندارد' }}</td>
+                            <td>{{ $surgery->getSurgeriedAtShamsi() }}</td>
+                            <td>{{ $surgery->getReleasedAtShamsi() }}</td>
                             <td>
                                 <form id="delete-form-{{ $surgery->id }}" method="POST" action="{{ route('Panel.DeleteSurgery', $surgery->id) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="confirmDelete('{{ $surgery->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">حذف</button>
+                                    <button type="button" onclick="confirmDelete('{{ $surgery->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">    <i class="fa fa-trash text-light"></i></button>
                                 </form>
 
 
-                                <a href="{{ route('Panel.EditSurgery', $surgery->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
+                                <a href="{{ route('Panel.EditSurgery', $surgery->id) }}" class="btn btn-warning btn-sm" style="color: white !important;"><i class="fa fa-pencil text-light"></i></a>
                             </td>
                         </tr>
                         @endforeach

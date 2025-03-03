@@ -41,6 +41,7 @@
                             <th>ردیف</th>
                             <th>نام عملیات</th>
                             <th>هزینه</th>
+                            <th>تاریخ ایجاد</th>
                             <th>وضعیت</th>
                             <th style="width: 150px;">عملیات</th>
                         </tr>
@@ -57,9 +58,9 @@
                                 <form id="delete-form-{{ $surgery->id }}" method="POST" action="{{ route('Panel.DeleteOperation', $operation->id) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="confirmDelete('{{ $operation->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">حذف</button>
+                                    <button type="button" onclick="confirmDelete('{{ $operation->id }}')" class="btn btn-danger btn-sm px-2" title="حذف"> <i class="fa fa-trash text-light"></i></button>
                                 </form>
-                                <a href="{{ route('Panel.EditOperation', $operation->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
+                                <a href="{{ route('Panel.EditOperation', $operation->id) }}" class="btn btn-warning btn-sm" style="color: white !important;"><i class="fa fa-pencil text-light"></i></a>
                             </td>
                         </tr>
                         @endforeach

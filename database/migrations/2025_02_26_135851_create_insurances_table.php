@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('insurances', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->unique();
+            $table->string('name', 100);
             $table->enum('type', ['basic', 'supplementary']);
             $table->tinyInteger('discount')->default(0)->unsigned()->comment('Percentage share in surgery (0 to 100)');;
             $table->boolean('status')->default(true);

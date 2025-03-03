@@ -41,6 +41,7 @@
                         <tr>
                             <th>ردیف</th>
                             <th>عنوان تخصص</th>
+                            <th>تاریخ ایجاد</th>
                             <th>وضعیت</th>
                             <th style="width: 150px;">عملیات</th> <!-- تنظیم عرض ستون عملیات -->
                         </tr>
@@ -50,6 +51,7 @@
                         <tr class="align-middle">
                             <td>{{ $index + 1 }}</td> <!-- ردیف -->
                             <td>{{ $speciality->title }}</td> <!-- نمایش عنوان تخصص -->
+                            <td>{{ $speciality->getCreateAtShamsi() }}</td> <!-- تاریخ ایجاد -->
                             <td>{{ $speciality->status ? 'فعال' : 'غیرفعال' }}</td> <!-- وضعیت تخصص -->
                             <td>
                                 <!-- لینک حذف -->
@@ -57,10 +59,10 @@
                                 <form id="delete-form-{{ $speciality->id }}" method="POST" action="{{ route('Panel.DeleteSpeciality', $speciality->id) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="confirmDelete('{{ $speciality->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">حذف</button>
+                                    <button type="button" onclick="confirmDelete('{{ $speciality->id }}')" class="btn btn-danger btn-sm px-2" title="حذف"> <i class="fa fa-trash text-light"></i></button>
                                 </form>
                                 <!-- لینک ویرایش -->
-                                <a href="{{ route('Panel.EditSpeciality', $speciality->id) }}" class="btn btn-warning btn-sm" style="color: white !important;">ویرایش</a>
+                                <a href="{{ route('Panel.EditSpeciality', $speciality->id) }}" class="btn btn-warning btn-sm" style="color: white !important;"><i class="fa fa-pencil text-light"></i></a>
                             </td>
                         </tr>
                         @endforeach

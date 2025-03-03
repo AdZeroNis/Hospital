@@ -26,8 +26,17 @@ class InsurancesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+
+       
+        if (Insurance::where('name', $request->name)
+                    ->where('type', $request->type)
+                    ->exists()) {
+            Alert::error('خطا', 'این بیمه با این نوع قبلاً در سیستم ثبت شده است');
+            return redirect()->back()->withInput();
+        }
+
         $request->validate([
-            'name' => 'required|max:100|unique:insurances,name',
+            'name' => 'required|max:100',
             'type' => 'required|in:basic,supplementary',
             'discount' => 'required|integer|between:0,100',
             'status' => 'required|boolean',
@@ -50,15 +59,24 @@ class InsurancesController extends Controller
     public function update(Request $request, $id)
     {
         $insurance = Insurance::find($id);
-        $data = $request->all();
+        
+        // چک کردن تکراری بودن بیمه با همین نام و نوع
+        if (Insurance::where('name', $request->name)
+                    ->where('type', $request->type)
+                    ->where('id', '!=', $id)
+                    ->exists()) {
+            Alert::error('خطا', 'این بیمه با این نوع قبلاً در سیستم ثبت شده است');
+            return redirect()->back()->withInput();
+        }
 
         $request->validate([
-            'name' => 'required|max:100|unique:insurances,name,' . $insurance->id,
+            'name' => 'required|max:100',
             'type' => 'required|in:basic,supplementary',
             'discount' => 'required|integer|between:0,100',
             'status' => 'required|boolean',
         ]);
 
+        $data = $request->all();
         $insurance->update($data);
         Alert::success('موفقیت', 'بیمه با موفقیت به‌روزرسانی شد');
         return redirect()->route('Panel.InsuranceList');

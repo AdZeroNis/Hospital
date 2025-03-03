@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\RoleDoctor;
 
 class SpecialityController extends Controller
 {
@@ -26,8 +27,17 @@ class SpecialityController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        
+        // First check if speciality exists
+    // ... existing code ...
+    if (Speciality::where('title', $request->title)->exists()) {
+        Alert::error('خطا', 'این تخصص قبلاً در سیستم ثبت شده است');
+        return redirect()->back()->withInput();
+    }
+// ... existing code ...
+        // Then do other validations
         $request->validate([
-            'title' => 'required|unique:specialities,title|max:191',
+            'title' => 'required|max:191',
             'status' => 'required|boolean',
         ]);
 
@@ -45,6 +55,20 @@ class SpecialityController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (Speciality::where('title', $request->title)->where('id', '!=', $id)->exists()) {
+            Alert::error('خطا', 'این تخصص قبلاً در سیستم ثبت شده است');
+            return redirect()->back()->withInput();
+        }
+
+        // محاسبه مجموع سهم‌های موجود به جز سهم فعلی
+        $totalQuota = RoleDoctor::where('id', '!=', $id)->sum('quota');
+        $newTotalQuota = $totalQuota + $request->quota;
+
+        if ($newTotalQuota > 100) {
+            Alert::error('خطا', 'مجموع سهم‌ها نمی‌تواند بیشتر از 100 درصد باشد');
+            return redirect()->back()->withInput();
+        }
+
         $request->validate([
             'title' => 'required|max:191|unique:specialities,title,' . $id,
             'status' => 'required|boolean',
