@@ -59,7 +59,7 @@
                                 <form id="delete-form-{{ $speciality->id }}" method="POST" action="{{ route('Panel.DeleteSpeciality', $speciality->id) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="confirmDelete('{{ $speciality->id }}')" class="btn btn-danger btn-sm px-2" title="حذف"> <i class="fa fa-trash text-light"></i></button>
+                                    <button type="button" @disabled($speciality->isDeletable()) onclick="confirmDelete('{{ $speciality->id }}')" class="btn btn-danger btn-sm px-2" title="حذف"> <i class="fa fa-trash text-light"></i></button>
                                 </form>
                                 <!-- لینک ویرایش -->
                                 <a href="{{ route('Panel.EditSpeciality', $speciality->id) }}" class="btn btn-warning btn-sm" style="color: white !important;"><i class="fa fa-pencil text-light"></i></a>

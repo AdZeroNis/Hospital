@@ -12,6 +12,21 @@ class Doctor extends Model
 
     protected $hidden = ['password'];
 
+    protected static function booted(): void
+    {
+        static::deleting(function (Doctor $doctor) {
+            if ($doctor->isDeletable()) {
+                abort(403, 'fORBIDDEN');
+                //abort_if
+            }
+        });
+    }
+
+    public function isDeletable()
+    {
+        return $this->surgeries()->exists();
+    }
+
     public function speciality()
     {
         return $this->belongsTo(Speciality::class);

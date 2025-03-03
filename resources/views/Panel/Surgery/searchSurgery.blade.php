@@ -64,7 +64,7 @@
                                 <form id="delete-form-{{ $surgery->id }}" method="POST" action="{{ route('Panel.DeleteSurgery', $surgery->id) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="confirmDelete('{{ $surgery->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">    <i class="fa fa-trash text-light"></i></button>
+                                    <button type="button" @disabled($surgery->isDeletable()) onclick="confirmDelete('{{ $surgery->id }}')" class="btn btn-danger btn-sm px-2" title="حذف">    <i class="fa fa-trash text-light"></i></button>
                                 </form>
                                 <a href="{{ route('Panel.EditSurgery', $surgery->id) }}" class="btn btn-warning btn-sm" style="color: white !important;"><i class="fa fa-pencil text-light"></i></a>
                             </td>

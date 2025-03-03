@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('surgery_operation', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('operation_id')->constrained('operations');
-            $table->foreignId('surgery_id')->constrained('surgeries');
-            $table->bigInteger('amount')->unsigned();
+            $table->foreignId('operation_id')->constrained();
+            $table->foreignId('surgery_id')->constrained();
+            $table->bigInteger('amount')->nullable()->comment('مبلغ به تومان');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('surgery_operation');
+        //
     }
 };

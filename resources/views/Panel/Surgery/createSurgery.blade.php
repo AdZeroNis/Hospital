@@ -2,33 +2,50 @@
 
 @section('content')
 
-<div class="container-fluid mt-5">
+<div class="container-fluid mt-3">
     <div class="row justify-content-center">
-        <div class="col-10">
-            <div class="card card-primary card-outline mb-4">
-                <div class="card-header">
+        <div class="col-8">
+            <div class="card card-primary card-outline mb-3">
+                <div class="card-header py-2">
                     <div class="card-title">اضافه کردن عمل جراحی</div>
                 </div>
                 <form method="POST" action="{{ route('Panel.StoreSurgery') }}">
                     @csrf
-                    <div class="card-body">
+                    <div class="card-body py-2">
                         <div class="row">
                             <!-- نام بیمار و کد ملی در یک ردیف -->
-                            <div class="col-md-6 mb-3">
-                                <label for="patient_name" class="form-label">نام بیمار</label>
-                                <input type="text" class="form-control" id="patient_name" name="patient_name" required>
+                            <div class="col-md-6 mb-2">
+                                <label for="patient_name" class="form-label mb-1">نام بیمار</label>
+                                <input type="text" class="form-control form-control-sm" id="patient_name" name="patient_name" required>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="patient_national_code" class="form-label">کد ملی بیمار</label>
-                                <input type="text" class="form-control" id="patient_national_code" name="patient_national_code" required>
+                            <div class="col-md-6 mb-2">
+                                <label for="patient_national_code" class="form-label mb-1">کد ملی بیمار</label>
+                                <input type="text" class="form-control form-control-sm" id="patient_national_code" name="patient_national_code" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- نوع عمل جراحی -->
+                            <div class="col-md-6 mb-2">
+                                <label for="operation_id" class="form-label mb-1">نوع عمل جراحی</label>
+                                <select class="form-control form-control-sm" id="operation_id" name="operation_id" required>
+                                    <option value="">انتخاب نوع عمل جراحی</option>
+                                    @foreach ($operations as $operation)
+                                        <option value="{{ $operation->id }}">{{ $operation->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label for="amount" class="form-label mb-1">مبلغ عمل جراحی</label>
+                                <input type="number" class="form-control form-control-sm" id="amount" name="amount" required min="0">
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- بیمه پایه و تکمیلی و شماره مدارک در یک ردیف -->
-                            <div class="col-md-4 mb-3">
-                                <label for="basic_insurance_id" class="form-label">بیمه پایه</label>
-                                <select class="form-control" id="basic_insurance_id" name="basic_insurance_id" >
+                            <div class="col-md-4 mb-2">
+                                <label for="basic_insurance_id" class="form-label mb-1">بیمه پایه</label>
+                                <select class="form-control form-control-sm" id="basic_insurance_id" name="basic_insurance_id" >
                                     <option value="">انتخاب بیمه پایه</option>
                                     @foreach ($insurances as $insurance)
                                         @if ($insurance->type == 'basic')
@@ -37,9 +54,9 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="supp_insurance_id" class="form-label">بیمه تکمیلی</label>
-                                <select class="form-control" id="supp_insurance_id" name="supp_insurance_id">
+                            <div class="col-md-4 mb-2">
+                                <label for="supp_insurance_id" class="form-label mb-1">بیمه تکمیلی</label>
+                                <select class="form-control form-control-sm" id="supp_insurance_id" name="supp_insurance_id">
                                     <option value="">انتخاب بیمه تکمیلی</option>
                                     @foreach ($insurances as $insurance)
                                         @if ($insurance->type == 'supplementary')
@@ -48,44 +65,38 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="document_number" class="form-label">شماره پرونده</label>
-                                <input type="number" class="form-control" id="document_number" name="document_number" required>
+                            <div class="col-md-4 mb-2">
+                                <label for="document_number" class="form-label mb-1">شماره پرونده</label>
+                                <input type="number" class="form-control form-control-sm" id="document_number" name="document_number" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- انتخاب پزشکان در یک ردیف -->
-                            <div class="col-md-4 mb-3">
-                                <label for="surgeon_id" class="form-label">جراح</label>
-                                <select class="form-control" id="surgeon_id" name="surgeon_id" required>
+                            <div class="col-md-4 mb-2">
+                                <label for="surgeon_id" class="form-label mb-1">جراح</label>
+                                <select class="form-control form-control-sm" id="surgeon_id" name="surgeon_id" required>
                                     <option value="">انتخاب جراح</option>
                                     @foreach ($doctors as $doctor)
-                                     
-                                            <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
-                                   
+                                        <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="anesthesiologist_id" class="form-label">بیهوشی</label>
-                                <select class="form-control" id="anesthesiologist_id" name="anesthesiologist_id" required>
+                            <div class="col-md-4 mb-2">
+                                <label for="anesthesiologist_id" class="form-label mb-1">بیهوشی</label>
+                                <select class="form-control form-control-sm" id="anesthesiologist_id" name="anesthesiologist_id" required>
                                     <option value="">انتخاب متخصص بیهوشی</option>
                                     @foreach ($doctors as $doctor)
-                                       
-                                            <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
-                                        
+                                        <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="consultant_id" class="form-label">مشاور</label>
-                                <select class="form-control" id="consultant_id" name="consultant_id" >
+                            <div class="col-md-4 mb-2">
+                                <label for="consultant_id" class="form-label mb-1">مشاور</label>
+                                <select class="form-control form-control-sm" id="consultant_id" name="consultant_id" >
                                     <option value="">انتخاب مشاور</option>
                                     @foreach ($doctors as $doctor)
-                                      
-                                            <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
-                                        
+                                        <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -93,26 +104,26 @@
 
                         <div class="row">
                             <!-- تاریخ عمل و تاریخ ترخیص در یک ردیف -->
-                            <div class="col-md-6 mb-3">
-                                <label for="surgeried_at" class="form-label">تاریخ عمل جراحی</label>
-                                <input type="text" class="form-control" id="surgeried_at" name="surgeried_at" placeholder="مثال: 1403/01/01" required>
+                            <div class="col-md-6 mb-2">
+                                <label for="surgeried_at" class="form-label mb-1">تاریخ عمل جراحی</label>
+                                <input type="date" class="form-control form-control-sm" id="surgeried_at" name="surgeried_at" placeholder="مثال: 1403/01/01" required>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="released_at" class="form-label">تاریخ ترخیص</label>
-                                <input type="text" class="form-control" id="released_at" name="released_at" placeholder="مثال: 1403/01/01" required>
+                            <div class="col-md-6 mb-2">
+                                <label for="released_at" class="form-label mb-1">تاریخ ترخیص</label>
+                                <input type="date" class="form-control form-control-sm" id="released_at" name="released_at" placeholder="مثال: 1403/01/01" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- توضیحات در یک ردیف جداگانه -->
-                            <div class="col-md-12 mb-3">
-                                <label for="description" class="form-label">توضیحات</label>
-                                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                            <div class="col-md-12 mb-2">
+                                <label for="description" class="form-label mb-1">توضیحات</label>
+                                <textarea class="form-control form-control-sm" id="description" name="description" rows="2"></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">اضافه کردن عمل جراحی</button>
+                    <div class="card-footer py-2">
+                        <button type="submit" class="btn btn-primary btn-sm">اضافه کردن عمل جراحی</button>
                     </div>
                 </form>
             </div>

@@ -8,7 +8,7 @@ class Surgery extends Model
 {
     protected $fillable = [
         'patient_name', 'patient_national_code', 'basic_insurance_id', 'supp_insurance_id',
-        'document_number', 'description', 'surgeried_at', 'released_at'
+        'document_number', 'description', 'surgeried_at', 'released_at', 'cost'
     ];
 
     public function basicInsurance()
@@ -35,10 +35,10 @@ class Surgery extends Model
     
     public function getSurgeriedAtShamsi()
     {
-        return (new Verta($this->surgeried_at))->format('Y.m.d');
+        return (new Verta($this->surgeried_at))->format('Y/m/d');
     }
     public function getReleasedAtShamsi()
     {
-        return (new Verta($this->released_at))->format('Y.m.d');
+        return (new Verta($this->released_at))->format('Y/m/d');
     }
 }
