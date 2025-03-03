@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Doctor;
+use App\Models\DoctorRole;
 
 class SurgeryController extends Controller
 {
@@ -22,27 +24,53 @@ class SurgeryController extends Controller
     {
         $user = Auth::user();
         $insurances = Insurance::all();
-        return view('Panel.Surgery.createSurgery', compact('user', 'insurances'));
+        $doctors = Doctor::all();
+        return view('Panel.Surgery.createSurgery', compact('user', 'insurances', 'doctors'));
     }
 
     public function store(Request $request)
     {
         $user = Auth::user();
-        $request->validate([
-            'patient_name' => 'required|max:100',
-            'patient_national_code' => 'required|max:20',
-            'basic_insurance_id' => 'nullable|exists:insurances,id',
-            'supp_insurance_id' => 'nullable|exists:insurances,id',
-            'document_number' => 'required|unique:surgeries,document_number',
-            'surgeried_at' => 'required|date',
-            'released_at' => 'required|date',
-        ]);
+        try {
+            $request->validate([
+                'patient_name' => 'required|max:100',
+                'patient_national_code' => 'required|max:20',
+                'basic_insurance_id' => 'nullable|exists:insurances,id',
+                'supp_insurance_id' => 'nullable|exists:insurances,id',
+                'document_number' => 'required|unique:surgeries,document_number',
+                'surgeried_at' => 'required|date',
+                'released_at' => 'required|date',
+                'surgeon_id' => 'required|exists:doctors,id',
+                'anesthesiologist_id' => 'required|exists:doctors,id',
+                'consultant_id' => 'nullable|exists:doctors,id',
+            ]);
 
-        $data = $request->all();
-        Surgery::create($data);
+            // Check if the same doctor is selected for multiple roles
+            if ($request->surgeon_id == $request->anesthesiologist_id) {
+                Alert::error('خطا', 'یک پزشک نمی‌تواند همزمان جراح و متخصص بیهوشی باشد');
+                return back()->withInput();
+            }
 
-        Alert::success('موفقیت', 'عمل جراحی با موفقیت ایجاد شد');
-        return redirect()->route('Panel.SurgeryList', compact('user'));
+            if ($request->consultant_id) {
+                if ($request->surgeon_id == $request->consultant_id) {
+                    Alert::error('خطا', 'یک پزشک نمی‌تواند همزمان جراح و مشاور باشد');
+                    return back()->withInput();
+                }
+                if ($request->anesthesiologist_id == $request->consultant_id) {
+                    Alert::error('خطا', 'یک پزشک نمی‌تواند همزمان متخصص بیهوشی و مشاور باشد');
+                    return back()->withInput();
+                }
+            }
+
+            $data = $request->all();
+            $surgery = Surgery::create($data);
+            Alert::success('موفقیت', 'عمل جراحی با موفقیت ایجاد شد');
+            return redirect()->route('Panel.SurgeryList', compact('user'));
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Alert::error('خطا', 'لطفاً تمام فیلدهای الزامی را پر کنید');
+            return back()->withInput();
+        }
     }
 
     public function edit($id)

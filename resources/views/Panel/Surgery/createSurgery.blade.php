@@ -28,7 +28,7 @@
                             <!-- بیمه پایه و تکمیلی و شماره مدارک در یک ردیف -->
                             <div class="col-md-4 mb-3">
                                 <label for="basic_insurance_id" class="form-label">بیمه پایه</label>
-                                <select class="form-control" id="basic_insurance_id" name="basic_insurance_id" required>
+                                <select class="form-control" id="basic_insurance_id" name="basic_insurance_id" >
                                     <option value="">انتخاب بیمه پایه</option>
                                     @foreach ($insurances as $insurance)
                                         @if ($insurance->type == 'basic')
@@ -51,6 +51,43 @@
                             <div class="col-md-4 mb-3">
                                 <label for="document_number" class="form-label">شماره پرونده</label>
                                 <input type="number" class="form-control" id="document_number" name="document_number" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- انتخاب پزشکان در یک ردیف -->
+                            <div class="col-md-4 mb-3">
+                                <label for="surgeon_id" class="form-label">جراح</label>
+                                <select class="form-control" id="surgeon_id" name="surgeon_id" required>
+                                    <option value="">انتخاب جراح</option>
+                                    @foreach ($doctors as $doctor)
+                                     
+                                            <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+                                   
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="anesthesiologist_id" class="form-label">بیهوشی</label>
+                                <select class="form-control" id="anesthesiologist_id" name="anesthesiologist_id" required>
+                                    <option value="">انتخاب متخصص بیهوشی</option>
+                                    @foreach ($doctors as $doctor)
+                                       
+                                            <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+                                        
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="consultant_id" class="form-label">مشاور</label>
+                                <select class="form-control" id="consultant_id" name="consultant_id" >
+                                    <option value="">انتخاب مشاور</option>
+                                    @foreach ($doctors as $doctor)
+                                      
+                                            <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+                                        
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
