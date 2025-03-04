@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Panel;
 
 use App\Models\Doctor;
 use App\Models\Speciality;
+use App\Models\DoctorRole;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -23,43 +24,51 @@ class DoctorController extends Controller
     {
         $user = Auth::user();
         $specialities = Speciality::all();
-        return view('Panel.Doctor.createDoctor', compact('specialities', 'user'));
+        $doctor_roles = DoctorRole::all();
+        return view('Panel.Doctor.createDoctor', compact('specialities', 'user','doctor_roles'));
     }
 
     public function store(Request $request)
-    {
-        if (Doctor::where('national_code', $request->national_code)->exists()) {
-            Alert::error('خطا', 'این پزشک قبلاً در سیستم ثبت شده است');
-            return redirect()->back()->withInput();
-        }
-        $user = Auth::user();
-        $request->validate([
-            'name' => 'required|max:100',
-            'speciality_id' => 'required|exists:specialities,id',
-            'national_code' => 'nullable|max:20',
-            'medical_number' => 'nullable|max:191',
-            'mobile' => 'required|unique:doctors,mobile|max:20',
-            'password' => 'required|max:191|confirmed',
-            'status' => 'required|boolean',
-        ]);
-
-        if ($request->filled('password')) {
-            $dataForm['password'] = Hash::make($request->password);
-        }
-        $data = $request->all();
-        $data['password'] = Hash::make($data['password']);
-
-        Doctor::create($data);
-        Alert::success('موفقیت', 'پزشک با موفقیت ایجاد شد');
-        return redirect()->route('Panel.DoctorList', compact('user'));
+{
+    if (Doctor::where('national_code', $request->national_code)->exists()) {
+        Alert::error('خطا', 'این پزشک قبلاً در سیستم ثبت شده است');
+        return redirect()->back()->withInput();
     }
+
+    $request->validate([
+        'name' => 'required|max:100',
+        'speciality_id' => 'required|exists:specialities,id',
+        'national_code' => 'nullable|max:20',
+        'medical_number' => 'nullable|max:191',
+        'mobile' => 'required|unique:doctors,mobile|max:20',
+        'password' => 'required|max:191|confirmed',
+        'status' => 'required|boolean',
+        'Doctor_roles' => 'required|array'
+    ]);
+
+    $data = $request->only(['name', 'speciality_id', 'national_code', 'medical_number', 'mobile', 'status']);
+    if ($request->filled('password')) {
+                $dataForm['password'] = Hash::make($request->password);
+            }
+    $data['password'] = Hash::make($request->password);
+
+    $doctor = Doctor::create($data); 
+
+
+    $doctor->roles()->attach($request->Doctor_roles);
+
+    Alert::success('موفقیت', 'پزشک با موفقیت ایجاد شد');
+    return redirect()->route('Panel.DoctorList');
+}
+
 
     public function edit($id)
     {
         $user = Auth::user();
         $doctor = Doctor::find($id);
         $specialities = Speciality::all();
-        return view('Panel.Doctor.editDoctor', compact('doctor', 'specialities', 'user'));
+        $doctor_roles = DoctorRole::all();
+        return view('Panel.Doctor.editDoctor', compact('doctor', 'specialities', 'user','doctor_roles'));
     }
 
     public function update(Request $request, $id)
@@ -68,29 +77,29 @@ class DoctorController extends Controller
             Alert::error('خطا', 'این پزشک قبلاً در سیستم ثبت شده است');
             return redirect()->back()->withInput();
         }
+
         $request->validate([
             'name' => 'required|max:100',
             'speciality_id' => 'required|exists:specialities,id',
             'national_code' => 'nullable|max:20',
             'medical_number' => 'nullable|max:191',
-            'mobile' => 'required|unique:doctors,mobile|max:20',
-            'password' => 'required|max:191|confirmed',
+            'mobile' => 'required|unique:doctors,mobile,' . $id . '|max:20',
+            'password' => 'nullable|max:191|confirmed',
             'status' => 'required|boolean',
+            'Doctor_roles' => 'required|array'
         ]);
 
+        $data = $request->only(['name', 'speciality_id', 'national_code', 'medical_number', 'mobile', 'status']);
+        
         if ($request->filled('password')) {
-            $dataForm['password'] = Hash::make($request->password);
+            $data['password'] = Hash::make($request->password);
         }
+
         $doctor = Doctor::find($id);
-        $data = $request->all();
-
-        if (isset($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
-        } else {
-            unset($data['password']);
-        }
-
         $doctor->update($data);
+        
+        $doctor->roles()->sync($request->Doctor_roles);
+
         Alert::success('موفقیت', 'پزشک با موفقیت به‌روزرسانی شد');
         return redirect()->route('Panel.DoctorList');
     }

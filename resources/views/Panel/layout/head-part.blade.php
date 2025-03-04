@@ -54,4 +54,7 @@
     <link rel="stylesheet" href="{{asset('Adminasset/css/custom-style.css')}}">
     <link rel="stylesheet" href="{{asset('Adminasset/css/adminlte.rtl.css')}}" />
     <!--end::Required Plugin(AdminLTE)-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+
   </head>

@@ -2,76 +2,83 @@
 
 @section('content')
 
-<div class="container-fluid mt-5">
+<div class="container-fluid mt-4">
     <div class="row justify-content-center">
-        <div class="col-10">
-            <div class="card card-primary card-outline mb-4">
+        <div class="col-8">
+            <div class="card card-primary card-outline">
                 <div class="card-header">
                     <div class="card-title">ویرایش پزشک</div>
                 </div>
                 <form method="POST" action="{{ route('Panel.UpdateDoctor', $doctor->id) }}" id="doctor-form">
                     @csrf
                     <div class="card-body">
-                        <div class="row">
-                            <!-- نام و کد ملی و شماره نظام پزشکی در یک ردیف -->
-                            <div class="col-md-4 mb-3">
+                        <div class="row g-2">
+                            <div class="col-md-4 mb-2">
                                 <label for="name" class="form-label">نام پزشک</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ $doctor->name }}" required>
+                                <input type="text" class="form-control form-control-sm" id="name" name="name" value="{{ $doctor->name }}" required />
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-4 mb-2">
                                 <label for="national_code" class="form-label">کد ملی</label>
-                                <input type="text" class="form-control" id="national_code" name="national_code" value="{{ $doctor->national_code }}" required>
+                                <input type="text" class="form-control form-control-sm" id="national_code" name="national_code" value="{{ $doctor->national_code }}" required />
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-4 mb-2">
                                 <label for="medical_number" class="form-label">شماره نظام پزشکی</label>
-                                <input type="text" class="form-control" id="medical_number" name="medical_number" value="{{ $doctor->medical_number }}" required>
+                                <input type="text" class="form-control form-control-sm" id="medical_number" name="medical_number" value="{{ $doctor->medical_number }}" required />
                             </div>
                         </div>
 
-                        <div class="row">
-                            <!-- تخصص و موبایل و وضعیت در یک ردیف -->
-                            <div class="col-md-4 mb-3">
+                        <div class="row g-2">
+                            <div class="col-md-4 mb-2">
                                 <label for="speciality_id" class="form-label">تخصص</label>
-                                <select name="speciality_id" id="speciality_id" class="form-control" required>
-                                    @foreach ($specialities as $speciality)
+                                <select class="form-control form-control-sm" id="speciality_id" name="speciality_id" required>
+                                    @foreach($specialities as $speciality)
                                         <option value="{{ $speciality->id }}" {{ $doctor->speciality_id == $speciality->id ? 'selected' : '' }}>
                                             {{ $speciality->title }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-4 mb-2">
                                 <label for="mobile" class="form-label">موبایل</label>
-                                <input type="text" class="form-control" id="mobile" name="mobile" value="{{ $doctor->mobile }}" required>
+                                <input type="text" class="form-control form-control-sm" id="mobile" name="mobile" value="{{ $doctor->mobile }}" required />
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="status" class="form-label">وضعیت</label>
-                                <select name="status" id="status" class="form-control" required>
-                                    <option value="1" {{ $doctor->status == 1 ? 'selected' : '' }}>فعال</option>
-                                    <option value="0" {{ $doctor->status == 0 ? 'selected' : '' }}>غیرفعال</option>
+                            <div class="col-md-4 mb-2">
+                                <label for="Doctor_roles_id" class="form-label">نقش پزشک</label>
+                                <select class="form-control form-control-sm" id="mySelect" name="Doctor_roles[]" multiple="multiple" required>
+                                    @foreach($doctor_roles as $doctor_role)
+                                        <option value="{{$doctor_role->id}}" {{ in_array($doctor_role->id, $doctor->roles->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                            {{$doctor_role->title}}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <!-- رمز و تایید رمز در یک ردیف -->
-                            <div class="col-md-6 mb-3">
+                        <div class="row g-2">
+                            <div class="col-md-4 mb-2">
                                 <label for="password" class="form-label">رمز</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                <input type="password" class="form-control form-control-sm" id="password" name="password" />
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-2">
                                 <label for="password_confirmation" class="form-label">تایید رمز عبور</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="تایید رمز عبور">
+                                <input type="password" class="form-control form-control-sm @error('password') is-invalid @enderror" id="password_confirmation" name="password_confirmation">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+                            <div class="col-md-4 mb-2">
+                                <label for="status" class="form-label">وضعیت</label>
+                                <select class="form-control form-control-sm" id="status" name="status">
+                                    <option value="1" {{ $doctor->status == 1 ? 'selected' : '' }}>فعال</option>
+                                    <option value="0" {{ $doctor->status == 0 ? 'selected' : '' }}>غیرفعال</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">بروزرسانی</button>
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-primary btn-sm">بروزرسانی</button>
                     </div>
                 </form>
             </div>
@@ -86,7 +93,4 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 {!! JsValidator::formRequest('App\Http\Requests\Admin\UserRequest', '#doctor-form'); !!}
-
-<script>
-
 @endsection

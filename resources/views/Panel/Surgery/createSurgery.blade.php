@@ -35,10 +35,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-2">
-                                <label for="amount" class="form-label mb-1">مبلغ عمل جراحی</label>
-                                <input type="number" class="form-control form-control-sm" id="amount" name="amount" required min="0">
-                            </div>
+                       
                         </div>
 
                         <div class="row">
