@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="d-flex justify-content-center mt-4"> 
-    <div class="col-md-10"> 
+<div class="d-flex justify-content-center mt-4">
+    <div class="col-md-10">
         <!-- فرم فیلتر -->
         <div class="card mb-4 shadow-lg rounded">
             <div class="card-body">
@@ -20,7 +20,8 @@
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <button type="submit" class="btn btn-secondary shadow">جستجو</button>
+                            <button type="submit" class="btn btn-secondary shadow">   <i class="fas fa-search me-1"></i>
+                                جستجو</button>
                         </div>
                     </div>
                 </form>
@@ -48,6 +49,7 @@
                             <th>ردیف</th>
                             <th>نام عملیات</th>
                             <th>هزینه</th>
+                            <th>تایخ ایجاد</th>
                             <th>وضعیت</th>
                             <th style="width: 150px;">عملیات</th>
                         </tr>
@@ -58,6 +60,7 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $operation->name }}</td>
                             <td>{{ $operation->price }} تومان</td>
+                            <td>{{ $operation->getCreateAtShamsi() }}</td>
                             <td>
                                 <span class="badge {{ $operation->status ? 'bg-success' : 'bg-danger' }}">
                                     {{ $operation->status ? 'فعال' : 'غیرفعال' }}

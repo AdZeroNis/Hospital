@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Hekmatinasser\Verta\Verta;
 class Insurance extends Model
 {
     protected $fillable = ['name', 'type', 'discount', 'status'];
@@ -26,5 +26,9 @@ class Insurance extends Model
     {
         return $this->hasMany(Surgery::class, 'basic_insurance_id')
                     ->orWhere('supp_insurance_id', $this->id);
+    }
+    public function getCreateAtShamsi()
+    {
+        return Verta::instance($this->created_at)->format('Y/n/j H:i');;
     }
 }

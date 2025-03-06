@@ -5,14 +5,14 @@
 <div class="d-flex justify-content-center mt-5">
     <div class="col-md-10">
         <!-- خوش‌آمدگویی -->
-     
+
 
         <!-- فرم جستجو -->
         <div class="card mb-4 shadow-lg rounded">
             <div class="card-header bg-white text-dark rounded-top">
                 <div class="card-title d-flex align-items-center">
                     <i class="fas fa-search me-2"></i>
-                    جستجوی اعمال جراحی
+                   پرداختی پزشک
                 </div>
             </div>
             <div class="card-body">
@@ -31,25 +31,25 @@
                         </div>
                         <div class="col-md-3">
     <label for="start_date" class="form-label fw-bold text-dark">از تاریخ</label>
-    <input 
-        type="text" 
-        name="start_date" 
-        class="form-control shadow-sm" 
-        id="start_date" 
-        data-jdp 
-        placeholder="مثال: 1402/09/15" 
+    <input
+        type="text"
+        name="start_date"
+        class="form-control shadow-sm"
+        id="start_date"
+        data-jdp
+        placeholder="مثال: 1402/09/15"
         value="{{ old('start_date', request('start_date')) }}"
     >
 </div>
 <div class="col-md-3">
     <label for="end_date" class="form-label fw-bold text-dark">تا تاریخ</label>
-    <input 
-        type="text" 
-        name="end_date" 
-        class="form-control shadow-sm" 
-        id="end_date" 
-        data-jdp 
-        placeholder="مثال: 1402/09/20" 
+    <input
+        type="text"
+        name="end_date"
+        class="form-control shadow-sm"
+        id="end_date"
+        data-jdp
+        placeholder="مثال: 1402/09/20"
         value="{{ old('end_date', request('end_date')) }}"
     >
 </div>
@@ -141,10 +141,10 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                        
+
                                         </form>
                                     </tbody>
-                                
+
                                 </table>
                             </div>
                         </div>

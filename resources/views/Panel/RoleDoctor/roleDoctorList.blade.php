@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="d-flex justify-content-center mt-4"> 
-    <div class="col-md-10"> 
+<div class="d-flex justify-content-center mt-4">
+    <div class="col-md-10">
         <!-- لیست نقش پزشکان -->
         <div class="card mb-4 shadow-lg rounded">
             <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white rounded-top">
@@ -22,6 +22,7 @@
                             <th>عنوان نقش</th>
                             <th>درصد سهم</th>
                             <th>اجباری</th>
+                            <th>تاریخ ایجاد</th>
                             <th>وضعیت</th>
                             <th style="width: 150px;">عملیات</th>
                         </tr>
@@ -37,6 +38,7 @@
                                     {{ $roleDoctor->required ? 'بله' : 'خیر' }}
                                 </span>
                             </td>
+                            <td>{{ $roleDoctor->getCreatedAtShamsi() }}</td>
                             <td>
                                 <span class="badge {{ $roleDoctor->status ? 'bg-success' : 'bg-danger' }}">
                                     {{ $roleDoctor->status ? 'فعال' : 'غیرفعال' }}

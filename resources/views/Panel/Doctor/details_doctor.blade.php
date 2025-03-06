@@ -120,7 +120,7 @@
                                                 <td>
                                                     <span class="badge bg-secondary">{{ $surgery['role_name'] }}</span>
                                                 </td>
-                                                <td>{{ number_format($surgery['amount']) }} ریال</td>
+                                                <td>{{ number_format($surgery['amount']) }} تومان</td>
                                                 <td>{{ $surgery['surgeried_at'] }}</td>
                                             </tr>
                                         @endforeach
@@ -129,7 +129,7 @@
                                         <tr>
                                             <th colspan="3">مجموع دریافتی</th>
                                             <th colspan="2" class="text-success">
-                                                {{ number_format($totalAmount) }} ریال
+                                                {{ number_format($totalAmount) }} تومان
                                             </th>
                                         </tr>
                                     </tfoot>

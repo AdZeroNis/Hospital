@@ -29,6 +29,6 @@ class Operation extends Model
     }
     public function getCreateAtShamsi()
     {
-        return new Verta($this->created_at);
+        return Verta::instance($this->created_at)->format('Y/n/j H:i');
     }
 }

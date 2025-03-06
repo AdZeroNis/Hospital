@@ -80,14 +80,14 @@
                                                 <td>
                                                     <span class="badge bg-primary">{{ $operation->name }}</span>
                                                 </td>
-                                                <td class="text-end">{{ number_format($operation->pivot->amount) }} ریال</td>
+                                                <td class="text-end">{{ number_format($operation->pivot->amount) }} تومان</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                     <tfoot class="table-light">
                                         <tr>
                                             <th>مبلغ کل عملیات</th>
-                                            <th class="text-end text-success">{{ number_format($surgery->operations->sum('pivot.amount')) }} ریال</th>
+                                            <th class="text-end text-success">{{ number_format($surgery->operations->sum('pivot.amount')) }} تومان</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -136,7 +136,7 @@
                                                 <i class="fas fa-user-md me-2"></i>جراح
                                             </h6>
                                             <div class="border-bottom pb-1">{{ $surgery->doctors->where('pivot.doctor_role_id', 1)->first()->name }}</div>
-                                            <small class="text-muted">سهم: {{ number_format($surgery->doctors->where('pivot.doctor_role_id', 1)->first()->pivot->amount) }} ریال</small>
+                                            <small class="text-muted">سهم: {{ number_format($surgery->doctors->where('pivot.doctor_role_id', 1)->first()->pivot->amount) }} تومان</small>
                                         </div>
                                     </div>
                                 </div>
@@ -147,7 +147,7 @@
                                                 <i class="fas fa-user-md me-2"></i>متخصص بیهوشی
                                             </h6>
                                             <div class="border-bottom pb-1">{{ $surgery->doctors->where('pivot.doctor_role_id', 2)->first()->name }}</div>
-                                            <small class="text-muted">سهم: {{ number_format($surgery->doctors->where('pivot.doctor_role_id', 2)->first()->pivot->amount) }} ریال</small>
+                                            <small class="text-muted">سهم: {{ number_format($surgery->doctors->where('pivot.doctor_role_id', 2)->first()->pivot->amount) }} تومان</small>
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +159,7 @@
                                             </h6>
                                             @if($surgery->doctors->where('pivot.doctor_role_id', 3)->first())
                                                 <div class="border-bottom pb-1">{{ $surgery->doctors->where('pivot.doctor_role_id', 3)->first()->name }}</div>
-                                                <small class="text-muted">سهم: {{ number_format($surgery->doctors->where('pivot.doctor_role_id', 3)->first()->pivot->amount) }} ریال</small>
+                                                <small class="text-muted">سهم: {{ number_format($surgery->doctors->where('pivot.doctor_role_id', 3)->first()->pivot->amount) }} تومان</small>
                                             @else
                                                 <div class="border-bottom pb-1 text-muted">تعیین نشده</div>
                                             @endif

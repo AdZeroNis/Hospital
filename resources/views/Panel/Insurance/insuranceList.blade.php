@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="d-flex justify-content-center mt-5"> 
-    <div class="col-md-10"> 
+<div class="d-flex justify-content-center mt-5">
+    <div class="col-md-10">
         <!-- فرم فیلتر -->
         <div class="card mb-4 shadow-lg rounded">
             <div class="card-body">
@@ -27,7 +27,8 @@
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <button type="submit" class="btn btn-secondary shadow">جستجو</button>
+                            <button type="submit" class="btn btn-secondary shadow">   <i class="fas fa-search me-1"></i>
+                                جستجو</button>
                         </div>
                     </div>
                 </form>
@@ -37,8 +38,13 @@
         <!-- لیست بیمه‌ها -->
         <div class="card mb-4 shadow-lg rounded">
             <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white rounded-top">
+                <i class="fas fa-list me-2"></i>
                 <h3 class="card-title">لیست بیمه‌ها</h3>
-                <a href="{{ route('Panel.CreateInsurance') }}" class="btn btn-light shadow-sm ms-auto">اضافه کردن بیمه جدید</a>
+                <a href="{{ route('Panel.CreateInsurance') }}" class="btn btn-light shadow-sm ms-auto">
+                    <i class="fas fa-plus-circle me-2"></i>
+                    اضافه کردن بیمه
+
+                </a>
             </div>
 
             <!-- /.card-header -->
@@ -50,6 +56,7 @@
                             <th>نام بیمه</th>
                             <th>نوع بیمه</th>
                             <th>درصد تخفیف</th>
+                            <th>تاریخ ایجاد</th>
                             <th>وضعیت</th>
                             <th style="width: 150px;">عملیات</th>
                         </tr>
@@ -61,6 +68,7 @@
                             <td>{{ $insurance->name }}</td>
                             <td>{{ $insurance->type == 'basic' ? 'پایه' : 'تکمیلی' }}</td>
                             <td>{{ $insurance->discount }}%</td>
+                            <td>{{ $insurance-> getCreateAtShamsi()}}</td> <!-- تاریخ ایجاد -->
                             <td>
                                 <span class="badge {{ $insurance->status ? 'bg-success' : 'bg-danger' }}">
                                     {{ $insurance->status ? 'فعال' : 'غیرفعال' }}

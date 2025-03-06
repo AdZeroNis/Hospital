@@ -21,7 +21,8 @@
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <button type="submit" class="btn btn-secondary shadow">جستجو</button> <!-- دکمه با سایه -->
+                            <button type="submit" class="btn btn-secondary shadow">   <i class="fas fa-search me-1"></i>
+                                جستجو</button> <!-- دکمه با سایه -->
                         </div>
                     </div>
                 </form>
@@ -32,7 +33,11 @@
         <div class="card mb-4 shadow-lg rounded"> <!-- اضافه کردن سایه بیشتر و گوشه گرد به کارت لیست -->
             <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white rounded-top"> <!-- سایه و تغییر رنگ هدر -->
                 <h3 class="card-title">لیست پزشکان</h3>
-                <a href="{{ route('Panel.CreateDoctor') }}" class="btn btn-light shadow-sm ms-auto">اضافه کردن پزشک جدید</a> <!-- دکمه اضافه کردن پزشک با سایه و تغییر رنگ -->
+                <a href="{{ route('Panel.CreateDoctor') }}" class="btn btn-light shadow-sm ms-auto">
+
+                    <i class="fas fa-plus-circle me-2"></i>
+                    اضافه کردن پزشک
+                    </a> <!-- دکمه اضافه کردن پزشک با سایه و تغییر رنگ -->
             </div>
 
             <!-- /.card-header -->

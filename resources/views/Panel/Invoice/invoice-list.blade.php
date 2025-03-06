@@ -11,9 +11,9 @@
                 <form method="GET" action="" class="mb-4">
                     <div class="row">
                         <div class="col-md-3">
-                            <input type="text" name="search" class="form-control shadow-sm" placeholder="جستجو بر اساس  نام پزشک" value="{{ old('search', request('search')) }}"> <!-- اضافه کردن سایه به فیلد ورودی -->
+                            <input type="text" name="search" class="form-control shadow-sm" placeholder="جستجو بر اساس   پزشک" value="{{ old('search', request('search')) }}"> <!-- اضافه کردن سایه به فیلد ورودی -->
                         </div>
-                       
+
                         <div class="col-md-3">
                             <select name="status" class="form-control shadow-sm"> <!-- اضافه کردن سایه به انتخابگر وضعیت -->
                                 <option value="">تمام وضعیت‌ها</option>
@@ -23,7 +23,10 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <button type="submit" class="btn btn-secondary shadow">جستجو</button> <!-- دکمه با سایه -->
+                            <button type="submit" class="btn btn-secondary shadow">
+                                <i class="fas fa-search me-1"></i>
+                                جستجو
+                                </button> <!-- دکمه با سایه -->
                         </div>
                     </div>
                 </form>
@@ -32,7 +35,8 @@
 
         <!-- لیست صورتحساب‌ها -->
         <div class="card mb-4 shadow-lg rounded"> <!-- اضافه کردن سایه بیشتر و گوشه گرد به کارت لیست -->
-            <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white rounded-top"> <!-- سایه و تغییر رنگ هدر -->
+            <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white rounded-top">
+                <!-- سایه و تغییر رنگ هدر -->
                 <h3 class="card-title">لیست صورتحساب‌ها</h3> <!-- دکمه اضافه کردن با سایه و تغییر رنگ -->
             </div>
 
@@ -42,7 +46,7 @@
                     <thead class="table-light">
                         <tr>
                             <th>ردیف</th>
-                    
+
                             <th>نام پزشک</th>
                             <th>تاریخ</th>
                             <th>مبلغ کل</th>
