@@ -31,7 +31,14 @@ class Surgery extends Model
     {
         return $this->belongsToMany(Doctor::class, 'surgery_doctor', 'surgery_id', 'doctor_id')
                     ->withPivot('doctor_role_id', 'invoice_id', 'amount');
-    } 
+    }
+
+    public function invoices()
+    {
+        return $this->belongsToMany(Invoice::class, 'surgery_doctor', 'surgery_id', 'invoice_id')
+                    ->whereNotNull('invoice_id')
+                    ->distinct();
+    }
     
     public function getSurgeriedAtShamsi()
     {

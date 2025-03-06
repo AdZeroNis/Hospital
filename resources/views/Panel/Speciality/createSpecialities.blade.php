@@ -2,50 +2,60 @@
 
 @section('content')
 
-
-<div class="container-fluid mt-5">
+<div class="container-fluid mt-4">
     <div class="row justify-content-center">
-        <div class="col-10"> <!-- استفاده از col-12 برای عرض کامل -->
-            <!--begin::Quick Example-->
-            <div class="card card-primary card-outline mb-4">
+        <div class="col-10">
+            <div class="card card-primary card-outline mb-4 shadow-lg rounded">
                 <!--begin::Header-->
-                <div class="card-header">
-                    <div class="card-title">اضافه کردن تخصص جدید</div>
+                <div class="card-header bg-primary text-white rounded-top">
+                    <div class="card-title">
+                        <i class="fas fa-plus-circle me-2"></i>
+                        اضافه کردن تخصص جدید
+                    </div>
                 </div>
                 <!--end::Header-->
+
                 <!--begin::Form-->
                 <form method="POST" action="{{ route('Panel.StoreSpeciality') }}" id="speciality-form">
                     @csrf
                     <!--begin::Body-->
                     <div class="card-body">
-                        <div class="mb-3">
-                            <label for="title" class="form-label">عنوان تخصص</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="title"
-                                name="title"
-                                required
-                            />
-                        </div>
-                        <div class="mb-3">
-                            <label for="status" class="form-label">وضعیت</label>
-                            <select class="form-control" id="status" name="status">
-                                <option value="1">فعال</option>
-                                <option value="0">غیرفعال</option>
-                            </select>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="title" class="form-label fw-bold text-dark">عنوان تخصص</label>
+                                <input
+                                    type="text"
+                                    class="form-control shadow-sm border-primary"
+                                    id="title"
+                                    name="title"
+                                    required
+                                />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="status" class="form-label fw-bold text-dark">وضعیت</label>
+                                <select class="form-control shadow-sm border-primary" id="status" name="status">
+                                    <option value="1">فعال</option>
+                                    <option value="0">غیرفعال</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <!--end::Body-->
                     <!--begin::Footer-->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">اضافه کردن</button>
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-primary shadow-sm me-2">
+                            <i class="fas fa-save me-2"></i>
+                            ذخیره
+                        </button>
+                        <a href="{{ route('Panel.SpecialitiesList') }}" class="btn btn-secondary shadow-sm">
+                            <i class="fas fa-arrow-right me-2"></i>
+                            بازگشت
+                        </a>
                     </div>
                     <!--end::Footer-->
                 </form>
                 <!--end::Form-->
             </div>
-            <!--end::Quick Example-->
         </div>
     </div>
 </div>

@@ -36,7 +36,10 @@ class Doctor extends Model
     {
         return $this->belongsToMany(DoctorRole::class, 'role_doctor_doctor', 'doctor_id', 'doctor_role_id');
     }
-
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
     public function surgeries()
     {
         return $this->belongsToMany(Surgery::class, 'surgery_doctor', 'doctor_id', 'surgery_id')

@@ -5,24 +5,23 @@
 <div class="d-flex justify-content-center mt-5"> <!-- تنظیم تراز وسط و فاصله -->
     <div class="col-md-10"> <!-- تنظیم عرض جدول -->
         <!-- فرم فیلتر -->
-        <div class="card mb-4">
+        <div class="card mb-4 shadow-lg rounded"> <!-- اضافه کردن سایه بیشتر و گوشه گرد -->
             <div class="card-body">
-
                 <!-- فرم جستجو برای پزشک -->
                 <form method="GET" action="{{ route('Panel.SearchDoctor') }}" class="mb-4">
                     <div class="row">
                         <div class="col-md-4">
-                            <input type="text" name="search" class="form-control" placeholder="جستجو بر اساس نام پزشک" value="{{ old('search', request('search')) }}">
+                            <input type="text" name="search" class="form-control shadow-sm" placeholder="جستجو بر اساس نام پزشک" value="{{ old('search', request('search')) }}"> <!-- اضافه کردن سایه به فیلد ورودی -->
                         </div>
                         <div class="col-md-4">
-                            <select name="status" class="form-control">
+                            <select name="status" class="form-control shadow-sm"> <!-- اضافه کردن سایه به انتخابگر وضعیت -->
                                 <option value="">تمام وضعیت‌ها</option>
                                 <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>فعال</option>
                                 <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>غیرفعال</option>
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <button type="submit" class="btn btn-secondary">جستجو</button>
+                            <button type="submit" class="btn btn-secondary shadow">جستجو</button> <!-- دکمه با سایه -->
                         </div>
                     </div>
                 </form>
@@ -30,24 +29,22 @@
         </div>
 
         <!-- لیست پزشکان -->
-        <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="card mb-4 shadow-lg rounded"> <!-- اضافه کردن سایه بیشتر و گوشه گرد به کارت لیست -->
+            <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white rounded-top"> <!-- سایه و تغییر رنگ هدر -->
                 <h3 class="card-title">لیست پزشکان</h3>
-                <a href="{{ route('Panel.CreateDoctor') }}" class="btn btn-primary ms-auto">اضافه کردن پزشک جدید</a>
+                <a href="{{ route('Panel.CreateDoctor') }}" class="btn btn-light shadow-sm ms-auto">اضافه کردن پزشک جدید</a> <!-- دکمه اضافه کردن پزشک با سایه و تغییر رنگ -->
             </div>
 
             <!-- /.card-header -->
             <div class="card-body p-0">
-                <table class="table table-striped">
-                    <thead>
+                <table class="table table-striped table-hover text-center"> <!-- اضافه کردن hover و center -->
+                    <thead class="table-light">
                         <tr>
                             <th>ردیف</th>
                             <th>نام پزشک</th>
                             <th>کد ملی</th>
                             <th>تاریخ ایجاد</th>
-                            <th>شماره نظام پزشکی</th>
                             <th>تخصص</th>
-                            <th>موبایل</th>
                             <th>وضعیت</th>
                             <th style="width: 150px;">عملیات</th>
                         </tr>
@@ -59,18 +56,20 @@
                             <td>{{ $doctor->name }}</td>
                             <td>{{ $doctor->national_code }}</td>
                             <td>{{ $doctor->getCreateAtShamsi() }}</td>
-                            <td>{{ $doctor->medical_number }}</td>
                             <td>{{ $doctor->speciality->title ?? 'ندارد' }}</td>
-                            <td>{{ $doctor->mobile }}</td>
-                            <td>{{ $doctor->status ? 'فعال' : 'غیرفعال' }}</td>
                             <td>
-                                {{-- <a href="{{ route('Panel.DeleteDoctor', $doctor->id) }}" class="btn btn-danger btn-sm">حذف</a> --}}
+                                <span class="badge {{ $doctor->status ? 'bg-success' : 'bg-danger' }}">
+                                    {{ $doctor->status ? 'فعال' : 'غیرفعال' }}
+                                </span>
+                            </td>
+                            <td>
                                 <form id="delete-form-{{ $doctor->id }}" method="POST" action="{{ route('Panel.DeleteDoctor', $doctor->id) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" @disabled($doctor->isDeletable()) onclick="confirmDelete('{{ $doctor->id }}')" class="btn btn-danger btn-sm px-2" title="حذف"> <i class="fa fa-trash text-light"></i></button>
+                                    <button type="button" @disabled($doctor->isDeletable()) onclick="confirmDelete('{{ $doctor->id }}')" class="btn btn-danger btn-sm shadow-sm" title="حذف"> <i class="fa fa-trash text-light"></i></button> <!-- دکمه با سایه -->
                                 </form>
-                                <a href="{{ route('Panel.EditDoctor', $doctor->id) }}" class="btn btn-warning btn-sm" style="color: white !important;"><i class="fa fa-pencil text-light"></i></a>
+                                <a href="{{ route('Panel.EditDoctor', $doctor->id) }}" class="btn btn-warning btn-sm shadow-sm" style="color: white !important;"><i class="fa fa-pencil text-light"></i></a> <!-- دکمه ویرایش با سایه -->
+                                <a href="{{ route('Panel.DetailsDoctor', $doctor->id) }}" class="btn btn-info btn-sm shadow-sm" style="color: white !important;"><i class="fa fa-eye text-light"></i></a> <!-- دکمه مشاهده با سایه -->
                             </td>
                         </tr>
                         @endforeach

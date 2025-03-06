@@ -2,73 +2,54 @@
 
 @section('content')
 
-<div class="d-flex justify-content-center mt-5"> <!-- تنظیم تراز وسط و فاصله -->
-    <div class="col-md-10"> <!-- تنظیم عرض جدول -->
-        <!-- فرم فیلتر -->
-        <div class="card mb-4">
-            <div class="card-body">
-
-                <!-- فرم جستجو برای نقش پزشک -->
-                <form method="GET" action="{{ route('Panel.SearchDoctorRole') }}" class="mb-4">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input type="text" name="search" class="form-control" placeholder="جستجو بر اساس نام نقش پزشک" value="{{ old('search', request('search')) }}">
-                        </div>
-                        <div class="col-md-4">
-                            <select name="status" class="form-control">
-                                <option value="">تمام وضعیت ها</option>
-                                <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>فعال</option>
-                                <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>غیرفعال</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <button type="submit" class="btn btn-secondary">جستجو</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
+<div class="d-flex justify-content-center mt-4"> 
+    <div class="col-md-10"> 
         <!-- لیست نقش پزشکان -->
-        <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title">لیست نقش‌های پزشکان</h3>
-                <!-- <a href="{{ route('Panel.CreateRolesDoctor') }}" class="btn btn-primary ms-auto">اضافه کردن نقش جدید</a> -->
+        <div class="card mb-4 shadow-lg rounded">
+            <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white rounded-top">
+                <h3 class="card-title">
+                    <i class="fas fa-list me-2"></i>
+                    لیست نقش‌های پزشکان
+                </h3>
             </div>
 
             <!-- /.card-header -->
             <div class="card-body p-0">
-                <table class="table table-striped">
-
-    <tr>
-        <th>ردیف</th>
-        <th>عنوان نقش</th>
-        <th>درصد سهم</th>
-        <th>اجباری</th> <!-- ستون جدید -->
-        <th>وضعیت</th>
-        <th style="width: 150px;">عملیات</th>
-    </tr>
-</thead>
-<tbody>
-    @foreach ($roles as $index => $roleDoctor)
-    <tr class="align-middle">
-        <td>{{ $index + 1 }}</td>
-        <td>{{ $roleDoctor->title }}</td>
-        <td>{{ $roleDoctor->quota }}%</td>
-        <td>{{ $roleDoctor->required ? 'بله' : 'خیر' }}</td> <!-- نمایش وضعیت اجباری -->
-        <td>{{ $roleDoctor->status ? 'فعال' : 'غیرفعال' }}</td>
-        <td>
-            {{-- <a href="{{ route('Panel.DeleteRolesDoctor', $roleDoctor->id) }}" class="btn btn-danger btn-sm">حذف</a> --}}
-            <!-- <form id="delete-form-{{ $roleDoctor->id }}" method="POST" action="{{ route('Panel.DeleteRolesDoctor', $roleDoctor->id) }}" style="display: inline;">
-                @csrf
-                @method('DELETE')
-                <button type="button" onclick="confirmDelete('{{ $roleDoctor->id }}')" class="btn btn-danger btn-sm px-2" title="حذف"> <i class="fa fa-trash text-light"></i></button>
-            </form> -->
-            <a href="{{ route('Panel.EditRolesDoctor', $roleDoctor->id) }}" class="btn btn-warning btn-sm" style="color: white !important;"><i class="fa fa-pencil text-light"></i></a>
-        </td>
-    </tr>
-    @endforeach
-</tbody>
+                <table class="table table-striped table-hover text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ردیف</th>
+                            <th>عنوان نقش</th>
+                            <th>درصد سهم</th>
+                            <th>اجباری</th>
+                            <th>وضعیت</th>
+                            <th style="width: 150px;">عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($roles as $index => $roleDoctor)
+                        <tr class="align-middle">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $roleDoctor->title }}</td>
+                            <td>{{ $roleDoctor->quota }}%</td>
+                            <td>
+                                <span class="badge {{ $roleDoctor->required ? 'bg-success' : 'bg-secondary' }}">
+                                    {{ $roleDoctor->required ? 'بله' : 'خیر' }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge {{ $roleDoctor->status ? 'bg-success' : 'bg-danger' }}">
+                                    {{ $roleDoctor->status ? 'فعال' : 'غیرفعال' }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ route('Panel.EditRolesDoctor', $roleDoctor->id) }}" class="btn btn-warning btn-sm shadow-sm" title="ویرایش">
+                                    <i class="fa fa-pencil text-light"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
             <!-- /.card-body -->

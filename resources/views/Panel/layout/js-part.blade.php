@@ -60,6 +60,10 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script src="https://api.masoudebrahimi.com/assets/plugins/MD.BootstrapPersianDateTimePicker/jquery.md.bootstrap.datetimepicker.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/md.bootstrappersiandatetimepicker@4.2.6/dist/md.bootstrappersiandatetimepicker.min.js"></script>
+
 
 <script>
     $(document).ready(function() {
@@ -71,3 +75,48 @@
 });
 
 </script>
+
+<script>
+    document.getElementById('operation_id').addEventListener('change', function() {
+        const selectedOptions = Array.from(this.selectedOptions);
+        let totalAmount = 0;
+        
+        selectedOptions.forEach(option => {
+            const price = parseInt(option.getAttribute('data-price'));
+            totalAmount += price;
+        });
+        
+        document.getElementById('total_amount').textContent = totalAmount.toLocaleString();
+    });
+</script>
+<script>
+    // فعال‌سازی دکمه زمانی که حداقل یک چک‌باکس انتخاب شده باشد
+    const submitBtn = document.getElementById('submit-btn');
+    const checkboxes = document.querySelectorAll('input[name="surgery_ids[]"]');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+            submitBtn.disabled = !anyChecked;
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jalali-datepicker@latest/dist/jalalidatepicker.min.js"></script>
+    <script>
+        // فعال‌سازی DatePicker روی فیلدهای تاریخ
+        document.addEventListener('DOMContentLoaded', function () {
+            jalaliDatepicker.init({
+                // تنظیمات دلخواه
+                minDate: "attr",
+                maxDate: "attr",
+                autoClose: true,
+                showEmptyBtn: true,
+                showTodayBtn: true,
+                showCloseBtn: true,
+            });
+
+            // اعمال DatePicker روی فیلدهای دارای data-jdp
+            jalaliDatepicker.bind(document.getElementById('surgeried_at'));
+            jalaliDatepicker.bind(document.getElementById('released_at'));
+        });
+    </script>

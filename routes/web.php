@@ -11,6 +11,8 @@ use App\Http\Controllers\Panel\InsurancesController;
 use App\Http\Controllers\Panel\OperationController;
 use App\Http\Controllers\Panel\SpecialityController;
 use App\Http\Controllers\Panel\SurgeryController;
+use App\Http\Controllers\Panel\InvoiceController;
+
 
 Route::get('/login', [AuthController::class, 'FormLogin'])->name('FormLogin');
 Route::post('/login', [AuthController::class, 'Login'])->name('Login');
@@ -50,6 +52,7 @@ Route::prefix('panel')->middleware('auth')->group(function () {
         Route::post('/doctor/update/{id}', [DoctorController::class, 'update'])->name('Panel.UpdateDoctor');
         Route::delete('/doctor/delete/{id}', [DoctorController::class, 'destroy'])->name('Panel.DeleteDoctor');
         Route::get('/doctor/search', [DoctorController::class, 'filters'])->name('Panel.SearchDoctor');
+        Route::get('/doctor/details/{id}', [DoctorController::class, 'details'])->name('Panel.DetailsDoctor');
     });
     Route::prefix('insurances')->group(function () {
         Route::get('/insurances', [InsurancesController::class, 'index'])->name('Panel.InsuranceList');
@@ -77,6 +80,16 @@ Route::prefix('Surgery')->group(function () {
      Route::post('/Surgery/update/{id}', [SurgeryController::class, 'update'])->name('Panel.UpdateSurgery');
     Route::delete('/Surgery/delete/{id}', [SurgeryController::class, 'destroy'])->name('Panel.DeleteSurgery');
     Route::get('/Surgery/filters', [SurgeryController::class, 'filters'])->name('Panel.SearchSurgery');
-});
+    Route::get('/Surgery/details/{id}', [SurgeryController::class, 'details'])->name('Panel.DetailsSurgery');
 });
 
+Route::prefix('Invoice')->group(function () {
+    Route::get('/Invoice',[InvoiceController::class,'index'])->name('Panel.InvoiceList');
+    Route::get('/pay',[InvoiceController::class,'pay'])->name('Panel.InvoicePay');
+    Route::get('/search-pay',[InvoiceController::class,'searchPay'])->name('Panel.SearchInvoicePay');
+    Route::post('/store', [InvoiceController::class, 'store'])->name('Panel.StoreInvoice');
+    Route::get('/invoice-list', [InvoiceController::class, 'invoiceList'])->name('Panel.InvoiceList');
+    Route::get('/edit/{id}', [InvoiceController::class, 'edit'])->name('Panel.EditInvoice');
+    Route::delete('/delete/{id}', [InvoiceController::class, 'destroy'])->name('Panel.DeleteInvoice');
+});
+});
