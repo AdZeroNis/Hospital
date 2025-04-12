@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Panel;
 use App\Models\Speciality;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\DoctorRole;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\RoleDoctor;
@@ -15,7 +16,7 @@ class SpecialityController extends Controller
     {
         $user = Auth::user();
         $specialities = Speciality::all();
-        return view('Panel.Speciality.SpecialitiesList', compact('specialities','user'));
+        return view('Panel.Speciality.SpecialitiesList', compact('specialities', 'user'));
     }
 
     public function create()
@@ -27,14 +28,14 @@ class SpecialityController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        
+
         // First check if speciality exists
-    // ... existing code ...
-    if (Speciality::where('title', $request->title)->exists()) {
-        Alert::error('خطا', 'این تخصص قبلاً در سیستم ثبت شده است');
-        return redirect()->back()->withInput();
-    }
-// ... existing code ...
+        // ... existing code ...
+        if (Speciality::where('title', $request->title)->exists()) {
+            Alert::error('خطا', 'این تخصص قبلاً در سیستم ثبت شده است');
+            return redirect()->back()->withInput();
+        }
+        // ... existing code ...
         // Then do other validations
         $request->validate([
             'title' => 'required|max:191',
@@ -43,14 +44,14 @@ class SpecialityController extends Controller
 
         Speciality::create($request->all());
         Alert::success('موفقیت', 'تخصص جدید با موفقیت اضافه شد');
-        return redirect()->route('Panel.SpecialitiesList',compact('user'));
+        return redirect()->route('Panel.SpecialitiesList', compact('user'));
     }
 
     public function edit($id)
     {
         $user = Auth::user();
         $speciality = Speciality::find($id);
-        return view('Panel.Speciality.editSpecialities', compact('speciality','user'));
+        return view('Panel.Speciality.editSpecialities', compact('speciality', 'user'));
     }
 
     public function update(Request $request, $id)
@@ -61,7 +62,7 @@ class SpecialityController extends Controller
         }
 
         // محاسبه مجموع سهم‌های موجود به جز سهم فعلی
-        $totalQuota = RoleDoctor::where('id', '!=', $id)->sum('quota');
+        $totalQuota = DoctorRole::where('id', '!=', $id)->sum('quota');
         $newTotalQuota = $totalQuota + $request->quota;
 
         if ($newTotalQuota > 100) {

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('surgery_operation', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('operation_id')->constrained();
-            $table->foreignId('surgery_id')->constrained();
+            $table->foreignId('operation_id')->constrained()->cascadeOnDelete();;
+            $table->foreignId('surgery_id')->constrained()->cascadeOnDelete();;
             $table->bigInteger('amount')->nullable()->comment('مبلغ به تومان');
             $table->timestamps();
         });

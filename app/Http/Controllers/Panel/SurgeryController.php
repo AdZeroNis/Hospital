@@ -30,10 +30,21 @@ class SurgeryController extends Controller
     public function create()
     {
         $user = Auth::user();
+
+        // بررسی مجموع سهم‌ها
+        $totalQuota = DoctorRole::whereIn('title', ['جراح', 'بیهوشی', 'مشاور'])
+            ->sum('quota');
+
+        if ($totalQuota < 100) {
+            Alert::error('خطا', 'مجموع سهم پزشکان کمتر از ۱۰۰٪ است. لطفاً ابتدا سهم‌ها را در تنظیمات نقش‌ها تکمیل کنید.');
+            return redirect()->route('Panel.RolesDoctorList');
+        }
+
         $insurances = Insurance::all();
         $doctors = Doctor::all();
         $operations = Operation::all();
         $doctor_roles = DoctorRole::all();
+
         return view('Panel.Surgery.createSurgery', compact('user', 'insurances', 'doctors', 'operations', 'doctor_roles'));
     }
     public function store(Request $request)
@@ -196,7 +207,7 @@ class SurgeryController extends Controller
         // حذف عملیات‌های قبلی
         $surgery->operations()->detach();
 
-    
+
         foreach ($request->operations as $operation_id) {
             $operation = Operation::find($operation_id);
             $total_amount += $operation->price;
@@ -275,9 +286,31 @@ class SurgeryController extends Controller
         ]);
     }
     public function details($id)
-    {
-        $user = Auth::user();
-        $surgery = Surgery::find($id);
-        return view('Panel.Surgery.details_surgery', compact('surgery', 'user'));
-    }
+{
+    $user = Auth::user();
+
+    $surgery = Surgery::with(['doctors.roles', 'doctors.invoices.payments'])->findOrFail($id);
+
+    $doctorsInfo = $surgery->doctors->map(function ($doctor) {
+        $role = $doctor->roles->where('id', $doctor->pivot->doctor_role_id)->first();
+        $roleName = $role ? $role->title : 'بدون نقش';
+
+        $doctorShare = $doctor->pivot->amount ?? 0;
+
+        $totalPayments = $doctor->invoices->flatMap->payments->sum('amount') ?? 0;
+
+        $fullyPaid = $totalPayments >= $doctorShare;
+
+        return [
+            'name' => $doctor->name,
+            'role' => $roleName,
+            'share' => $doctorShare,
+            'paid' => $fullyPaid,
+            'has_invoices' => $doctor->invoices->isNotEmpty(),
+        ];
+    });
+
+    return view('Panel.Surgery.details_surgery', compact('surgery', 'user', 'doctorsInfo'));
+}
+
 }

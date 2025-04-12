@@ -44,4 +44,6 @@ class SurgeryDoctor extends Model
     {
         return $this->belongsTo(DoctorRole::class, 'doctor_role_id');
     }
+    
+
 }

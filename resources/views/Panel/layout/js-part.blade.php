@@ -63,6 +63,7 @@
 <script src="https://api.masoudebrahimi.com/assets/plugins/MD.BootstrapPersianDateTimePicker/jquery.md.bootstrap.datetimepicker.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/md.bootstrappersiandatetimepicker@4.2.6/dist/md.bootstrappersiandatetimepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/majidh1/JalaliDatePicker@latest/dist/jalalidatepicker.min.js"></script>
 
 
 <script>
@@ -80,12 +81,12 @@
     document.getElementById('operation_id').addEventListener('change', function() {
         const selectedOptions = Array.from(this.selectedOptions);
         let totalAmount = 0;
-        
+
         selectedOptions.forEach(option => {
             const price = parseInt(option.getAttribute('data-price'));
             totalAmount += price;
         });
-        
+
         document.getElementById('total_amount').textContent = totalAmount.toLocaleString();
     });
 </script>
@@ -101,7 +102,7 @@
         });
     });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/jalali-datepicker@latest/dist/jalalidatepicker.min.js"></script>
+
     <script>
         // فعال‌سازی DatePicker روی فیلدهای تاریخ
         document.addEventListener('DOMContentLoaded', function () {
@@ -120,3 +121,13 @@
             jalaliDatepicker.bind(document.getElementById('released_at'));
         });
     </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        jalaliDatepicker.startWatch({
+            minDate: "attr",
+            maxDate: "attr"
+        });
+    });
+</script>
+

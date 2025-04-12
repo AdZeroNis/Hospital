@@ -33,7 +33,7 @@ return [
     ],
     "boolean"          => "فیلد :attribute فقط میتواند صحیح و یا غلط باشد",
     "confirmed"        => ":attribute با تاییدیه مطابقت ندارد.",
-    'current_password'         => 'رمز عبور اشتباه است.',
+    'current_password' => 'رمز عبور فعلی نادرست است',
     "date"             => ":attribute یک تاریخ معتبر نیست.",
     'date_equals'      => ':attribute باید برابر تاریخ :date باشد.',
     "date_format"      => ":attribute با الگوی :format مطاقبت ندارد.",
@@ -223,6 +223,6 @@ return [
         "passport_no" => "شماره پاسپورت",
 		"sheba_number" => "شماره شبا",
 		"iban" => "شماره شبا",
-		"accountـnumber" => "شماره حساب"		
+		"accountـnumber" => "شماره حساب"
     ],
 ];

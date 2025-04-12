@@ -10,7 +10,7 @@
                 <form method="GET" action="{{ route('Panel.Searchinsurances') }}" class="mb-4">
                     <div class="row">
                         <div class="col-md-4">
-                            <input type="text" name="search" class="form-control shadow-sm" placeholder="جستجو بر اساس نام بیمه" value="{{ old('search', request('search')) }}">
+                            <input type="text" name="search" class="form-control shadow-sm" autocomplete="off" placeholder="جستجو بر اساس نام بیمه" value="{{ old('search', request('search')) }}">
                         </div>
                         {{-- <div class="col-md-3">
                             <select name="type" class="form-control">
@@ -56,8 +56,9 @@
                             <th>نام بیمه</th>
                             <th>نوع بیمه</th>
                             <th>درصد تخفیف</th>
-                            <th>تاریخ ایجاد</th>
+
                             <th>وضعیت</th>
+                            <th>تاریخ ایجاد</th>
                             <th style="width: 150px;">عملیات</th>
                         </tr>
                     </thead>
@@ -68,12 +69,13 @@
                             <td>{{ $insurance->name }}</td>
                             <td>{{ $insurance->type == 'basic' ? 'پایه' : 'تکمیلی' }}</td>
                             <td>{{ $insurance->discount }}%</td>
-                            <td>{{ $insurance-> getCreateAtShamsi()}}</td> <!-- تاریخ ایجاد -->
+                             <!-- تاریخ ایجاد -->
                             <td>
                                 <span class="badge {{ $insurance->status ? 'bg-success' : 'bg-danger' }}">
                                     {{ $insurance->status ? 'فعال' : 'غیرفعال' }}
                                 </span>
                             </td>
+                            <td>{{ $insurance-> getCreateAtShamsi()}}</td>
                             <td>
                                 <a href="{{ route('Panel.EditInsurance', $insurance->id) }}" class="btn btn-warning btn-sm shadow-sm" style="color: white !important;"><i class="fa fa-pencil text-light"></i></a>
 

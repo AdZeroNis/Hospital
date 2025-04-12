@@ -22,8 +22,9 @@
                             <th>عنوان نقش</th>
                             <th>درصد سهم</th>
                             <th>اجباری</th>
-                            <th>تاریخ ایجاد</th>
+
                             <th>وضعیت</th>
+                            <th>تاریخ ایجاد</th>
                             <th style="width: 150px;">عملیات</th>
                         </tr>
                     </thead>
@@ -38,12 +39,13 @@
                                     {{ $roleDoctor->required ? 'بله' : 'خیر' }}
                                 </span>
                             </td>
-                            <td>{{ $roleDoctor->getCreatedAtShamsi() }}</td>
+
                             <td>
                                 <span class="badge {{ $roleDoctor->status ? 'bg-success' : 'bg-danger' }}">
                                     {{ $roleDoctor->status ? 'فعال' : 'غیرفعال' }}
                                 </span>
                             </td>
+                            <td>{{ $roleDoctor->getCreatedAtShamsi() }}</td>
                             <td>
                                 <a href="{{ route('Panel.EditRolesDoctor', $roleDoctor->id) }}" class="btn btn-warning btn-sm shadow-sm" title="ویرایش">
                                     <i class="fa fa-pencil text-light"></i>

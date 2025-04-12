@@ -12,17 +12,17 @@ use App\Http\Controllers\Panel\OperationController;
 use App\Http\Controllers\Panel\SpecialityController;
 use App\Http\Controllers\Panel\SurgeryController;
 use App\Http\Controllers\Panel\InvoiceController;
-
+use App\Http\Controllers\Panel\PaymentController;
 
 Route::get('/login', [AuthController::class, 'FormLogin'])->name('FormLogin');
 Route::post('/login', [AuthController::class, 'Login'])->name('Login');
-Route::prefix('panel')->middleware('auth')->group(function () {
-    Route::get('/Panel', [PanelController::class, 'Panel'])->name('Panel');
+Route::prefix('Panel')->middleware('auth')->group(function () {
+    Route::get('/panel', [PanelController::class, 'Panel'])->name('Panel');
 
      Route::prefix("user")->group(function () {
-        Route::get('/user/profile', [UserController::class, 'Profile'])->name('Profile');
-        Route::get('/Edit/{id}', [UserController::class, "Edit"])->name('editProfile');
-    Route::post('/Update/{id}', [UserController::class, "Update"])->name('updateProfile');
+        Route::get('/user-profile', [UserController::class, 'Profile'])->name('Profile');
+        Route::get('/edit/{id}', [UserController::class, "Edit"])->name('editProfile');
+    Route::post('/update/{id}', [UserController::class, "Update"])->name('updateProfile');
 
         });
     Route::prefix('specialities')->group(function () {
@@ -91,5 +91,17 @@ Route::prefix('Invoice')->group(function () {
     Route::get('/invoice-list', [InvoiceController::class, 'invoiceList'])->name('Panel.InvoiceList');
     Route::get('/edit/{id}', [InvoiceController::class, 'edit'])->name('Panel.EditInvoice');
     Route::delete('/delete/{id}', [InvoiceController::class, 'destroy'])->name('Panel.DeleteInvoice');
+    Route::get('/invoices/filters', [InvoiceController::class, 'filters'])->name('Panel.InvoiceFilters');
+
+
+});
+Route::prefix('Payment')->group(function () {
+    Route::get('/Payment/{id}',[PaymentController::class,'index'])->name('Panel.StorePayment');
+    Route::post('/payment/cash', [PaymentController::class, 'storePayment'])->name('Panel.storePayment');
+    Route::delete('/delete/{id}', [PaymentController::class, 'deleteInvoice'])->name('Panel.deleteInvoice');
+    Route::get('/invoice/print/{id}', [InvoiceController::class, 'print'])->name('Panel.print');
+    Route::get('/doctor/{doctor_id}/invoice/{invoice_id}/payment-report', [PaymentController::class, 'paymentReport'])->name('Panel.ReportPayments');
+
+    // Route::delete('/delete/{id}', [PaymentController::class, 'destroy'])->name('Panel.DeleteInvoice');
 });
 });

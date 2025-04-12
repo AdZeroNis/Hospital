@@ -44,16 +44,32 @@ class UserController extends Controller
            $request->validate([
                'name' => 'required',
                'email' => 'required|email|unique:users,email,' . $user->id,
+               'current_password' => 'required_with:password', // اضافه کردن اعتبارسنجی رمز فعلی
                'password' => 'nullable|min:6|confirmed',
            ]);
 
-           $dataForm = $request->except(['password']);
+           // اعتبارسنجی رمز عبور فعلی
+           if ($request->filled('password')) {
+               if (!Hash::check($request->current_password, $user->password)) {
+                   Alert::error('خطا', 'رمز عبور فعلی نادرست است');
+                   return redirect()->back();
+               }
+           }
+
+           $dataForm = $request->except(['password', 'current_password']);
 
            if ($request->filled('password')) {
                $dataForm['password'] = Hash::make($request->password);
            }
 
            $user->update($dataForm);
+
+           // اگر رمز تغییر کرده باشد، کاربر را لاگ اوت می‌کنیم
+           if ($request->filled('password')) {
+               Auth::logout();
+               Alert::success('موفقیت', 'پروفایل و رمز عبور با موفقیت به‌روزرسانی شد. لطفاً مجدداً وارد شوید');
+               return redirect()->route('FormLogin');
+           }
 
            Alert::success('موفقیت', 'پروفایل با موفقیت به‌روزرسانی شد');
            return redirect()->route('Profile');

@@ -34,13 +34,22 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="password" class="form-label">رمز عبور جدید (در صورت تمایل)</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="در صورت نیاز رمز عبور جدید وارد کنید">
+                                <label for="current_password" class="form-label">رمز عبور فعلی (برای تغییر رمز ضروری است)</label>
+                                <input type="password" class="form-control @error('current_password') is-invalid @enderror"
+                                       id="current_password" name="current_password"
+                                       placeholder="رمز عبور فعلی را وارد کنید">
+                                @error('current_password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
-                                <label for="password_confirmation" class="form-label">تایید رمز عبور جدید</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="تایید رمز عبور جدید">
+                                <label for="password" class="form-label">رمز عبور جدید (در صورت تمایل)</label>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                       id="password" name="password"
+                                       placeholder="در صورت نیاز رمز عبور جدید وارد کنید">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -48,6 +57,12 @@
                                 @enderror
                             </div>
 
+                            <div class="mb-3">
+                                <label for="password_confirmation" class="form-label">تایید رمز عبور جدید</label>
+                                <input type="password" class="form-control"
+                                       id="password_confirmation" name="password_confirmation"
+                                       placeholder="تایید رمز عبور جدید">
+                            </div>
 
 
                             <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>

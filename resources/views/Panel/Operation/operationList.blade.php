@@ -10,7 +10,7 @@
                 <form method="GET" action="{{ route('Panel.SearchOperation') }}" class="mb-4">
                     <div class="row">
                         <div class="col-md-4">
-                            <input type="text" name="search" class="form-control shadow-sm" placeholder="جستجو بر اساس نام عملیات" value="{{ old('search', request('search')) }}">
+                            <input type="text" name="search" autocomplete="off" class="form-control shadow-sm" placeholder="جستجو بر اساس نام عملیات" value="{{ old('search', request('search')) }}">
                         </div>
                         <div class="col-md-4">
                             <select name="status" class="form-control shadow-sm">
@@ -49,8 +49,9 @@
                             <th>ردیف</th>
                             <th>نام عملیات</th>
                             <th>هزینه</th>
-                            <th>تایخ ایجاد</th>
+
                             <th>وضعیت</th>
+                            <th>تایخ ایجاد</th>
                             <th style="width: 150px;">عملیات</th>
                         </tr>
                     </thead>
@@ -60,12 +61,13 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $operation->name }}</td>
                             <td>{{ $operation->price }} تومان</td>
-                            <td>{{ $operation->getCreateAtShamsi() }}</td>
+
                             <td>
                                 <span class="badge {{ $operation->status ? 'bg-success' : 'bg-danger' }}">
                                     {{ $operation->status ? 'فعال' : 'غیرفعال' }}
                                 </span>
                             </td>
+                            <td>{{ $operation->getCreateAtShamsi() }}</td>
                             <td>
                                 <div class="btn-group">
                                     <a href="{{ route('Panel.EditOperation', $operation->id) }}" class="btn btn-warning btn-sm shadow-sm" title="ویرایش">

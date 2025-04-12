@@ -36,10 +36,14 @@ class Surgery extends Model
     public function invoices()
     {
         return $this->belongsToMany(Invoice::class, 'surgery_doctor', 'surgery_id', 'invoice_id')
-                    ->whereNotNull('invoice_id')
-                    ->distinct();
+                    ->whereNotNull('invoice_id');
+
     }
-    
+    public function surgeryDoctors()
+    {
+        return $this->hasMany(SurgeryDoctor::class);
+    }
+
     public function getSurgeriedAtShamsi()
     {
         return (new Verta($this->surgeried_at))->format('Y/m/d');
@@ -48,4 +52,9 @@ class Surgery extends Model
     {
         return (new Verta($this->released_at))->format('Y/m/d');
     }
+    public function payments()
+{
+    return $this->hasMany(Payment::class);
+}
+
 }

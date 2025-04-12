@@ -13,7 +13,7 @@
       name="keywords"
       content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard"
     />
- 
+
 
 
     <!--end::Primary Meta Tags-->
@@ -58,5 +58,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/md.bootstrappersiandatetimepicker@4.2.6/dist/md.bootstrappersiandatetimepicker.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jalali-datepicker@latest/dist/jalalidatepicker.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/majidh1/JalaliDatePicker@latest/dist/jalalidatepicker.min.css">
+
 
   </head>

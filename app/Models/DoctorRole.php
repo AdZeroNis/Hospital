@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Hekmatinasser\Verta\Verta;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class DoctorRole extends Model
 {
+    use HasFactory;
     protected $fillable = ['title', 'required', 'quota', 'status'];
 
     public function doctors()

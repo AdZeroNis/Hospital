@@ -11,7 +11,7 @@
                 <form method="GET" action="{{ route('Panel.SearchSpeciality') }}" class="mb-4">
                     <div class="row">
                         <div class="col-md-4">
-                            <input type="text" name="search" class="form-control shadow-sm" placeholder="جستجو بر اساس نام تخصص" value="{{ old('search', request('search')) }}"> <!-- اضافه کردن سایه به فیلد ورودی -->
+                            <input type="text" name="search" class="form-control shadow-sm" autocomplete="off" placeholder="جستجو بر اساس نام تخصص" value="{{ old('search', request('search')) }}"> <!-- اضافه کردن سایه به فیلد ورودی -->
                         </div>
                         <div class="col-md-4">
                             <select name="status" class="form-control shadow-sm"> <!-- اضافه کردن سایه به انتخابگر وضعیت -->
@@ -47,8 +47,9 @@
                         <tr>
                             <th>ردیف</th>
                             <th>عنوان تخصص</th>
-                            <th>تاریخ ایجاد</th>
                             <th>وضعیت</th>
+                            <th>تاریخ ایجاد</th>
+
                             <th style="width: 150px;">عملیات</th>
                         </tr>
                     </thead>
@@ -57,12 +58,13 @@
                         <tr class="align-middle">
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $speciality->title }}</td>
-                            <td>{{ $speciality->getCreateAtShamsi() }}</td>
+
                             <td>
                                 <span class="badge {{ $speciality->status ? 'bg-success' : 'bg-danger' }}">
                                     {{ $speciality->status ? 'فعال' : 'غیرفعال' }}
                                 </span>
                             </td>
+                            <td>{{ $speciality->getCreateAtShamsi() }}</td>
                             <td>
                                 <form id="delete-form-{{ $speciality->id }}" method="POST" action="{{ route('Panel.DeleteSpeciality', $speciality->id) }}" style="display: inline;">
                                     @csrf

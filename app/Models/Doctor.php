@@ -45,9 +45,18 @@ class Doctor extends Model
         return $this->belongsToMany(Surgery::class, 'surgery_doctor', 'doctor_id', 'surgery_id')
                     ->withPivot('doctor_role_id', 'invoice_id', 'amount');
     }
+
+    public function surgeryDoctors()
+    {
+        return $this->hasMany(SurgeryDoctor::class);
+    }
     public function getCreateAtShamsi()
     {
         return Verta::instance($this->created_at)->format('Y/n/j H:i');;
+    }
+    public function payments()
+    {
+        return $this->hasManyThrough(Payment::class, Invoice::class, 'doctor_id', 'invoice_id');
     }
 
 }

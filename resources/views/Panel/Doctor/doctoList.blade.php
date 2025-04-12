@@ -11,7 +11,7 @@
                 <form method="GET" action="{{ route('Panel.SearchDoctor') }}" class="mb-4">
                     <div class="row">
                         <div class="col-md-4">
-                            <input type="text" name="search" class="form-control shadow-sm" placeholder="جستجو بر اساس نام پزشک" value="{{ old('search', request('search')) }}"> <!-- اضافه کردن سایه به فیلد ورودی -->
+                            <input type="text" name="search" class="form-control shadow-sm" placeholder="جستجو بر اساس نام پزشک" value="{{ old('search', request('search')) }}" autocomplete="off"> <!-- اضافه کردن سایه به فیلد ورودی -->
                         </div>
                         <div class="col-md-4">
                             <select name="status" class="form-control shadow-sm"> <!-- اضافه کردن سایه به انتخابگر وضعیت -->
@@ -48,9 +48,10 @@
                             <th>ردیف</th>
                             <th>نام پزشک</th>
                             <th>کد ملی</th>
-                            <th>تاریخ ایجاد</th>
+
                             <th>تخصص</th>
                             <th>وضعیت</th>
+                            <th>تاریخ ایجاد</th>
                             <th style="width: 150px;">عملیات</th>
                         </tr>
                     </thead>
@@ -60,13 +61,14 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $doctor->name }}</td>
                             <td>{{ $doctor->national_code }}</td>
-                            <td>{{ $doctor->getCreateAtShamsi() }}</td>
+
                             <td>{{ $doctor->speciality->title ?? 'ندارد' }}</td>
                             <td>
                                 <span class="badge {{ $doctor->status ? 'bg-success' : 'bg-danger' }}">
                                     {{ $doctor->status ? 'فعال' : 'غیرفعال' }}
                                 </span>
                             </td>
+                            <td>{{ $doctor->getCreateAtShamsi() }}</td>
                             <td>
                                 <form id="delete-form-{{ $doctor->id }}" method="POST" action="{{ route('Panel.DeleteDoctor', $doctor->id) }}" style="display: inline;">
                                     @csrf

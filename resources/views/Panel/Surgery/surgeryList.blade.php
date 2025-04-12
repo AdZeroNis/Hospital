@@ -11,7 +11,7 @@
                 <form method="GET" action="{{ route('Panel.SearchSurgery') }}" class="mb-4">
                     <div class="row">
                         <div class="col-md-4">
-                            <input type="text" name="search" class="form-control shadow-sm" placeholder="جستجو بر اساس نام بیمار" value="{{ old('search', request('search')) }}"> <!-- اضافه کردن سایه به فیلد ورودی -->
+                            <input type="text" name="search" class="form-control shadow-sm" autocomplete="off" placeholder="جستجو بر اساس نام بیمار" value="{{ old('search', request('search')) }}"> <!-- اضافه کردن سایه به فیلد ورودی -->
                         </div>
                         <div class="col-md-4">
                             <select name="status" class="form-control shadow-sm"> <!-- اضافه کردن سایه به انتخابگر وضعیت -->

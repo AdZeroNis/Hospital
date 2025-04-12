@@ -106,26 +106,28 @@
                         <div class="row g-2">
     <div class="col-md-6 mb-2">
         <label for="surgeried_at" class="form-label">تاریخ عمل جراحی</label>
-        <input 
-            type="text" 
-            class="form-control form-control-sm" 
-            id="surgeried_at" 
-            name="surgeried_at" 
-            data-jdp 
-            placeholder="مثال: 1402/09/15" 
-            required 
+        <input
+            type="text"
+            class="form-control form-control-sm"
+            id="surgeried_at"
+            name="surgeried_at"
+            data-jdp
+            placeholder="مثال: 1402/09/15"
+            required
+
         />
     </div>
     <div class="col-md-6 mb-2">
         <label for="released_at" class="form-label">تاریخ ترخیص</label>
-        <input 
-            type="text" 
-            class="form-control form-control-sm" 
-            id="released_at" 
-            name="released_at" 
-            data-jdp 
-            placeholder="مثال: 1402/09/20" 
-            required 
+        <input
+            type="text"
+            class="form-control form-control-sm"
+            id="released_at"
+            name="released_at"
+            data-jdp
+            placeholder="مثال: 1402/09/20"
+            required
+
         />
     </div>
 </div>
