@@ -291,7 +291,7 @@ class SurgeryController extends Controller
 
         $surgery = Surgery::with(['doctors.roles', 'doctors.invoices.payments'])->findOrFail($id);
 
-        $doctorsInfo = $surgery->doctors->map(function ($doctor) {
+            $doctorsInfo = $surgery->doctors->map(function ($doctor) {
             $role = $doctor->roles->where('id', $doctor->pivot->doctor_role_id)->first();
             $roleName = $role ? $role->title : 'بدون نقش';
 

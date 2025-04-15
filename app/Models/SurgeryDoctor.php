@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Laravel\Sanctum\HasApiTokens;
 class SurgeryDoctor extends Model
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens;
 
     // نام جدول
     protected $table = 'surgery_doctor';
@@ -44,6 +44,6 @@ class SurgeryDoctor extends Model
     {
         return $this->belongsTo(DoctorRole::class, 'doctor_role_id');
     }
-    
+
 
 }

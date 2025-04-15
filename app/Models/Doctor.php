@@ -4,8 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Hekmatinasser\Verta\Verta;
+use Laravel\Sanctum\HasApiTokens;
+
 class Doctor extends Model
 {
+    use HasApiTokens;
     protected $fillable = [
         'name', 'speciality_id', 'national_code', 'medical_number', 'mobile', 'password', 'status'
     ];
