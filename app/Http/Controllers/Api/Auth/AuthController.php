@@ -25,35 +25,37 @@ class AuthController extends Controller
             }
         }
         if (!$exists) {
-            return response()->json([
-                'status' => false,
-                'message' => 'دکتری با چنین مشخصاتی پیدا نشد،لطفا ثبت نام کنید',
-                'exists' => true
-            ]);
-        }
-        if (!Hash::check($fields['password'], $doctor->password)) {
-            return response()->json([
+            return response()->error(
+                'دکتری با چنین مشخصاتی پیدا نشد،لطفا ثبت نام کنید',
+                400
+            );
 
-                'status' => false,
-                'message' => 'رمز عبور غلط است'
-            ]);
+        }
+
+        if (!Hash::check($fields['password'], $doctor->password)) {
+            return response()->error(
+                'رمز ورود غلط است',
+                400
+            );
+
+
         }
         $token = $doctor->createToken('token_base_name')->plainTextToken;
-        return response()->json([
-            'status' => true,
-            'message' => 'ورود موفقیت آمیز بود',
-            'user' => $doctor,
-            'Token'=>$token
-        ]);
+        return response()->success(
+            [
+                'doctor' => $doctor,
+                'token' => $token,
+            ],
+            'ورود موفقیت آمیز بود'
+        );
     }
 
     public function logout(Request $request)
     {
 
         $request->user()->tokens()->delete();
-           return response()->json([
-            'status' => true,
-            'message' => 'خروج با موفقیت انجام شد'
-        ]);
+        return response()->success(
+            'خروج موفقیت آمیز بوئ',
+        );
     }
 }

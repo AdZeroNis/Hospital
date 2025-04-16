@@ -18,17 +18,18 @@ class SurgeriesController extends Controller
 
       if($surgeries->isEmpty())
       {
-          return response()->json([
-              'status' => false,
-              'message' => 'هیچ عمل جراحی برای این کاربر یافت نشد.',
-          ], 404);
+        return response()->error(
+            'هیچ عمل جراحی برای این پزشک یافت شد',
+            404
+        );
       }
 
-      return response()->json([
-          'status' => true,
-          'message' => 'عمل های جراحی با موفقیت بازیابی شدند.',
-          'surgeries' => $surgeries,
-      ]);
+      return response()->success(
+        [
+            'surgeries' => $surgeries,
+        ],
+        ' عمل های جراحی بازیابی شدند'
+    );
     }
     public function detailsSurgery($id, Request $request)
 {
@@ -37,16 +38,16 @@ class SurgeriesController extends Controller
     $surgery = Surgery::with(['doctors.roles', 'doctors.invoices.payments'])
         ->findOrFail($id);
 
-       // بررسی اینکه آیا این دکتر در این عمل حضور داشته یا نه
+
        $isDoctorInSurgery = $surgery->doctors->contains(function ($doc) use ($doctor) {
         return $doc->id === $doctor->id;
     });
 
     if (!$isDoctorInSurgery) {
-        return response()->json([
-            'status' => false,
-            'message' => 'شما در این عمل جراحی حضور ندارید.',
-        ], 403);
+        return response()->error(
+            'شما در این عمل جراحی حضور ندارید',
+            403
+        );
     }
     $doctorsInfo = $surgery->doctors->map(function ($doc) {
         $role = $doc->roles->where('id', $doc->pivot->doctor_role_id)->first();
@@ -68,15 +69,17 @@ class SurgeriesController extends Controller
         ];
     });
 
-    return response()->json([
-        'status' => true,
-        'message' => 'جزییات عمل جراحی با موفقیت دریافت شد.',
-        'surgery' => [
-            'id' => $surgery->id,
-            'title' => $surgery->title,
-            'date' => $surgery->created_at,
-            'doctors' => $doctorsInfo,
-        ]
-    ]);
+    return response()->success(
+        [
+            'surgery' => [
+                'id' => $surgery->id,
+                'title' => $surgery->title,
+                'date' => $surgery->created_at,
+                'doctors' => $doctorsInfo,
+            ]
+        ],
+        'جزییات عمل جراحی با موفقیت دریافت شد.'
+    );
+
 }
 }
